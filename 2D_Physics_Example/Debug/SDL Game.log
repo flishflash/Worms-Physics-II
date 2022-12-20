@@ -1,22 +1,30 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(452,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Worms.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Worms.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Application.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  log.cpp
+  Main.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleAudio.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleInput.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
   ModulePhysics.cpp
-D:\Projects\CITM\Worms\ModulePhysics.h(101,23): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Projects\CITM\Worms\ModulePhysics.cpp(237,13): warning C4305: '*=': truncation from 'double' to 'float'
-D:\Projects\CITM\Worms\ModulePhysics.cpp(242,7): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(699,1): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message : see reference to function template instantiation 'PhysBall *std::vector<PhysBall,std::allocator<_Ty>>::_Emplace_reallocate<PhysBall&>(PhysBall *const ,PhysBall &)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :             _Ty=PhysBall
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message : see reference to function template instantiation 'PhysBall *std::vector<PhysBall,std::allocator<_Ty>>::_Emplace_reallocate<PhysBall&>(PhysBall *const ,PhysBall &)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :             _Ty=PhysBall
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.23.28105\include\vector(659): message :         ]
-D:\Projects\CITM\Worms\ModulePhysics.cpp(66): message : see reference to function template instantiation 'void std::vector<PhysBall,std::allocator<_Ty>>::emplace_back<PhysBall&>(PhysBall &)' being compiled
-D:\Projects\CITM\Worms\ModulePhysics.cpp(66): message :         with
-D:\Projects\CITM\Worms\ModulePhysics.cpp(66): message :         [
-D:\Projects\CITM\Worms\ModulePhysics.cpp(66): message :             _Ty=PhysBall
-D:\Projects\CITM\Worms\ModulePhysics.cpp(66): message :         ]
-  SDL Game.vcxproj -> D:\Projects\CITM\Worms\Debug\PhysEngine.exe
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(237,13): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(242,7): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(775,1): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : see reference to function template instantiation 'PhysBall *std::vector<PhysBall,std::allocator<PhysBall>>::_Emplace_reallocate<PhysBall&>(PhysBall *const ,PhysBall &)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : see reference to function template instantiation 'PhysBall *std::vector<PhysBall,std::allocator<PhysBall>>::_Emplace_reallocate<PhysBall&>(PhysBall *const ,PhysBall &)' being compiled
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(66): message : see reference to function template instantiation 'void std::vector<PhysBall,std::allocator<PhysBall>>::emplace_back<PhysBall&>(PhysBall &)' being compiled
+  ModulePlayer.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleRender.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleSceneIntro.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleTextures.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ModuleWindow.cpp
+C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(101,11): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
+  SDL Game.vcxproj -> C:\Users\joseti1\Documents\GitHub\Worms-Physics-II\2D_Physics_Example\Debug\PhysEngine.exe

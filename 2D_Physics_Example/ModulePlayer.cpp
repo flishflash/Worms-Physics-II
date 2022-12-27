@@ -14,6 +14,8 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
+
+
 	return true;
 }
 
@@ -28,6 +30,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
 	return UPDATE_CONTINUE;
 }
 

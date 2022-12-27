@@ -25,6 +25,10 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	int x;
+	int y;
+	int w;
+	int h;
 
 public:
 

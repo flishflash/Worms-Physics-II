@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Animation.h"
+#include "ModulePlayer.h"
 #include "p2DynArray.h"
 #include "Globals.h"
 
@@ -74,4 +75,9 @@ public:
 
 	PhysBody* player_lose;
 	uint player_lose_fx;
+
+	void ModuleSceneIntro::AddBall(float x, float y, float angle);
+
+private:
+
 };

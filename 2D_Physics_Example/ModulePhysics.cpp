@@ -21,21 +21,43 @@ bool ModulePhysics::Start()
 	LOG("Creating Physics 2D environment");
 
 	// Create ground
-	ground = Ground();
-	ground.x = 0.0f; // [m]
-	ground.y = 0.0f; // [m]
-	ground.w = 30.0f; // [m]
-	ground.h = 5.0f; // [m]
+	ground[0] = Ground();
+	ground[0].x = 0.0f; // [m]
+	ground[0].y = 0.0f; // [m]
+	ground[0].w = PIXEL_TO_METERS(SCREEN_WIDTH); // [m]
+	ground[0].h = 5.0f; // [m]
+
+	// Create ground
+	ground[1] = Ground();
+	ground[1].x = PIXEL_TO_METERS(768); // [m]
+	ground[1].y = 0.0f; // [m]
+	ground[1].w = PIXEL_TO_METERS(256); // [m]
+	ground[1].h = 10.0f; // [m]
+
+	// Create ground
+	player_1 = Pplayer();
+	player_1.x = PIXEL_TO_METERS(256); // [m]
+	player_1.y = ground[0].h; // [m]
+	player_1.w = 1.0f; // [m]
+	player_1.h = 2.0f; // [m]
+
+	// Create ground
+	player_2 = Pplayer();
+	player_2.x = PIXEL_TO_METERS(768); // [m]
+	player_2.y = ground[0].h + 5.0f; // [m]
+	player_2.w = 1.0f; // [m]
+	player_2.h = 2.0f; // [m]
+
 
 	// Create Water
-	water = Water();
-	water.x = ground.x + ground.w; // Start where ground ends [m]
-	water.y = 0.0f; // [m]
-	water.w = 30.0f; // [m]
-	water.h = 5.0f; // [m]
-	water.density = 50.0f; // [kg/m^3]
-	water.vx = -1.0f; // [m/s]
-	water.vy = 0.0f; // [m/s]
+	//water = Water();
+	//water.x = ground.x + ground.w; // Start where ground ends [m]
+	//water.y = 0.0f; // [m]
+	//water.w = 30.0f; // [m]
+	//water.h = 5.0f; // [m]
+	//water.density = 50.0f; // [kg/m^3]
+	//water.vx = -1.0f; // [m/s]
+	//water.vy = 0.0f; // [m/s]
 
 	// Create atmosphere
 	atmosphere = Atmosphere();
@@ -43,27 +65,27 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
 
-	// Create a ball
-	PhysBall ball = PhysBall();
+	//// Create a ball
+	//PhysBall ball = PhysBall();
 
-	// Set static properties of the ball
-	ball.mass = 10.0f; // [kg]
-	ball.surface = 1.0f; // [m^2]
-	ball.radius = 0.5f; // [m]
-	ball.cd = 0.4f; // [-]
-	ball.cl = 1.2f; // [-]
-	ball.b = 10.0f; // [...]
-	ball.coef_friction = 0.9f; // [-]
-	ball.coef_restitution = 0.8f; // [-]
+	//// Set static properties of the ball
+	//ball.mass = 10.0f; // [kg]
+	//ball.surface = 1.0f; // [m^2]
+	//ball.radius = 0.5f; // [m]
+	//ball.cd = 0.4f; // [-]
+	//ball.cl = 1.2f; // [-]
+	//ball.b = 10.0f; // [...]
+	//ball.coef_friction = 0.9f; // [-]
+	//ball.coef_restitution = 0.8f; // [-]
 
-	// Set initial position and velocity of the ball
-	ball.x = 2.0f;
-	ball.y = (ground.y + ground.h) + 2.0f;
-	ball.vx = 5.0f;
-	ball.vy = 10.0f;
+	//// Set initial position and velocity of the ball
+	//ball.x = 2.0f;
+	//ball.y = (ground.y + ground.h) + 2.0f;
+	//ball.vx = 0.0f;
+	//ball.vy = 0.0f;
 
-	// Add ball to the collection
-	balls.emplace_back(ball);
+	//// Add ball to the collection
+	//balls.emplace_back(ball);
 
 	return true;
 }
@@ -98,8 +120,8 @@ update_status ModulePhysics::PreUpdate()
 		if (!is_colliding_with_water(ball, water))
 		{
 			float fdx = 0.0f; float fdy = 0.0f;
-			compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
-			ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+			//compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
+			//ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
 		}
 
 		// Hydrodynamic forces (only when in water)
@@ -136,10 +158,10 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Solve collision between ball and ground
-		if (is_colliding_with_ground(ball, ground))
+		if (is_colliding_with_ground(ball, ground[0]))
 		{
 			// TP ball to ground surface
-			ball.y = ground.y + ground.h + ball.radius;
+			ball.y = ground[0].y + ground[0].h + ball.radius;
 
 			// Elastic bounce with ground
 			ball.vy = - ball.vy;
@@ -161,8 +183,20 @@ update_status ModulePhysics::PostUpdate()
 
 	// Draw ground
 	color_r = 0; color_g = 255; color_b = 0;
-	App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+	App->renderer->DrawQuad(ground[0].pixels(), color_r, color_g, color_b);	
+	
+	// Draw ground
+	color_r = 0; color_g = 255; color_b = 0;
+	App->renderer->DrawQuad(ground[1].pixels(), color_r, color_g, color_b);
+	
+	// Draw player
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
 
+	// Draw player
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(player_2.pixels(), color_r, color_g, color_b);
+	
 	// Draw water
 	color_r = 0; color_g = 0; color_b = 255;
 	App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);

@@ -60,6 +60,7 @@ public:
 	SDL_Rect pixels(); // Convert geometry to pixels to draw w/ SDL
 };
 
+
 // Class: Water
 class Water : public Ground
 {
@@ -67,6 +68,12 @@ public:
 	float density; // Density of fluid
 	float vx; // Velocity x
 	float vy; // Velocity y
+};
+
+// Class: Water
+class Pplayer : public Ground
+{
+
 };
 
 // Class: Atmosphere
@@ -93,9 +100,12 @@ public:
 
 	// Physics objects
 	std::vector<PhysBall> balls{};
+	std::vector<PhysBall> pplayers{};
 	Atmosphere atmosphere{};
-	Ground ground{};
+	Ground ground[2]{};
 	Water water{};
+	Pplayer player_1{};
+	Pplayer player_2{};
 
 	// Misc
 	float dt = 1.0 / 60.0;

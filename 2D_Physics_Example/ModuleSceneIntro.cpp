@@ -40,7 +40,7 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
 	{
-		AddBall(2, 2, 2);
+		AddBall(App->physics->player_1.w, App->physics->player_1.y + App->physics->player_1.h / 2.0f, 2);
 	}
 
 	return UPDATE_CONTINUE;
@@ -62,10 +62,10 @@ void ModuleSceneIntro::AddBall(float x, float y, float angle)
 	ball.coef_restitution = 0.8f; // [-]
 
 	// Set initial position and velocity of the ball
-	ball.x = 2.0f;
-	ball.y = 20.0f;
-	ball.vx = 0.0f;
-	ball.vy = 0.0f;
+	ball.x = x;
+	ball.y = y;
+	ball.vx = 20.0f;
+	ball.vy = 10.0f;
 
 	// Add ball to the collection
 	App->physics->balls.emplace_back(ball);

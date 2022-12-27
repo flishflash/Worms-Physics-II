@@ -133,6 +133,9 @@ void integrator_velocity_verlet(PhysBall& ball, float dt);
 // Detect collision with ground
 bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);
 
+// Detect collision with player
+bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player);
+
 // Detect collision with water
 bool is_colliding_with_water(const PhysBall& ball, const Water& water);
 

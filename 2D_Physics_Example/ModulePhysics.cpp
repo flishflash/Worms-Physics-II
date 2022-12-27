@@ -170,6 +170,19 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
+
+		if (is_colliding_with_ground(ball, ground[1]))
+		{
+			// TP ball to ground surface
+			ball.y = ground[1].y + ground[1].h + ball.radius;
+
+			// Elastic bounce with ground
+			ball.vy = -ball.vy;
+
+			// FUYM non-elasticity
+			ball.vx *= ball.coef_friction;
+			ball.vy *= ball.coef_restitution;
+		}
 	}
 
 	// Continue game
@@ -291,6 +304,15 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground)
 	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
 	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, ground.w, ground.h);
+}
+
+// Detect collision with ground
+bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player)
+{
+	float rect_x = (player.x + player.w / 2.0f); // Center of rectangle
+	float rect_y = (player.y + player.h / 2.0f); // Center of rectangle
+
+	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, player.w, player.h);
 }
 
 // Detect collision with water

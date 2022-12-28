@@ -47,4 +47,10 @@ public:
 	PhysBody* flipper_up2_wheel;
 
 	PhysBody* sensor1;
+
+	SDL_Texture* texture;
+
+	//Animation
+	Animation* currentAnimation = nullptr;
+	Animation PlayerIdleRight;
 };

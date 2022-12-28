@@ -36,16 +36,51 @@ bool ModulePhysics::Start()
 
 	grounds.emplace_back(ground);
 
-	// Create ground
+	ground.x = PIXEL_TO_METERS(768); // [m]
+	ground.y = 10.0f; // [m]
+	ground.w = 1.0f; // [m]
+	ground.h = 3.0f; // [m]
+
+	grounds.emplace_back(ground);
+
+	ground.x = PIXEL_TO_METERS(768); // [m]
+	ground.y = 13.0f; // [m]
+	ground.w = 2.0f; // [m]
+	ground.h = 1.0f; // [m]
+
+	grounds.emplace_back(ground);
+
+	ground.x = 0.0f; // [m]
+	ground.y = 0.0f; // [m]
+	ground.w = 1.0f; // [m]
+	ground.h = PIXEL_TO_METERS(SCREEN_HEIGHT); // [m]
+
+	grounds.emplace_back(ground);
+
+	ground.x = PIXEL_TO_METERS(SCREEN_WIDTH)-1.0f; // [m]
+	ground.y = 0.0f; // [m]
+	ground.w = 1.0f; // [m]
+	ground.h = PIXEL_TO_METERS(SCREEN_HEIGHT); // [m]
+
+	grounds.emplace_back(ground);
+
+	ground.x = 0.0f; // [m]
+	ground.y = PIXEL_TO_METERS(SCREEN_HEIGHT)-1.0f; // [m]
+	ground.w = PIXEL_TO_METERS(SCREEN_WIDTH); // [m]
+	ground.h = 1.0f; // [m]
+
+	grounds.emplace_back(ground);
+
+	// Create player_1
 	player_1 = Pplayer();
 	player_1.x = PIXEL_TO_METERS(256); // [m]
 	player_1.y = 5.0f; // [m]
 	player_1.w = 1.0f; // [m]
 	player_1.h = 2.0f; // [m]
 
-	// Create ground
+	// Create player_2
 	player_2 = Pplayer();
-	player_2.x = PIXEL_TO_METERS(768); // [m]
+	player_2.x = PIXEL_TO_METERS(788); // [m]
 	player_2.y = 10.0f; // [m]
 	player_2.w = 1.0f; // [m]
 	player_2.h = 2.0f; // [m]
@@ -66,28 +101,6 @@ bool ModulePhysics::Start()
 	atmosphere.windx = 10.0f; // [m/s]
 	atmosphere.windy = 5.0f; // [m/s]
 	atmosphere.density = 1.0f; // [kg/m^3]
-
-	//// Create a ball
-	//PhysBall ball = PhysBall();
-
-	//// Set static properties of the ball
-	//ball.mass = 10.0f; // [kg]
-	//ball.surface = 1.0f; // [m^2]
-	//ball.radius = 0.5f; // [m]
-	//ball.cd = 0.4f; // [-]
-	//ball.cl = 1.2f; // [-]
-	//ball.b = 10.0f; // [...]
-	//ball.coef_friction = 0.9f; // [-]
-	//ball.coef_restitution = 0.8f; // [-]
-
-	//// Set initial position and velocity of the ball
-	//ball.x = 2.0f;
-	//ball.y = (ground.y + ground.h) + 2.0f;
-	//ball.vx = 0.0f;
-	//ball.vy = 0.0f;
-
-	//// Add ball to the collection
-	//balls.emplace_back(ball);
 
 	return true;
 }
@@ -190,8 +203,19 @@ update_status ModulePhysics::PreUpdate()
 					ball.vx *= ball.coef_friction;
 					ball.vy *= ball.coef_restitution;
 				}
-				else
+				else if(ball.y < ground.y)
 				{
+					// TP ball to ground surface
+					ball.y = ground.y - ball.radius;
+
+					// Elastic bounce with ground
+					ball.vy = -ball.vy;
+
+					// FUYM non-elasticity
+					ball.vx *= ball.coef_friction;
+					ball.vy *= ball.coef_restitution;
+
+				}else{
 					if (ball.x > ground.x)
 					{
 						// TP ball to ground surface

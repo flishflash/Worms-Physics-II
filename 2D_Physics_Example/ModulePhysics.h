@@ -100,12 +100,11 @@ public:
 
 	// Physics objects
 	std::vector<PhysBall> balls{};
-	std::vector<PhysBall> pplayers{};
 	Atmosphere atmosphere{};
-	Ground ground[2]{};
-	Water water{};
 	Pplayer player_1{};
 	Pplayer player_2{};
+	std::vector<Ground> grounds{};
+	std::vector<Water> waters{};
 
 	// Misc
 	float dt = 1.0 / 60.0;

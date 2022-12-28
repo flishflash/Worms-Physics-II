@@ -78,6 +78,8 @@ public:
 
 	void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientation);
 
+	int turns;
+
 private:
 
 };

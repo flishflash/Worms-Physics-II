@@ -19,6 +19,7 @@ bool ModuleSceneIntro::Start()
 	bool ret = true;
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
+	turns = 0;
 
 	return ret;
 }
@@ -43,7 +44,7 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 	{
-		AddBall(App->physics->player_1.x, App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
+		AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), turns);
 	}
 
 	return UPDATE_CONTINUE;

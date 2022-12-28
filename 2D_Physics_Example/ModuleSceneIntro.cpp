@@ -40,17 +40,17 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 	{
-		AddBall(App->physics->player_1.x, App->physics->player_1.y + App->physics->player_1.h / 2.0f, App->input->GetMouseX(), App->input->GetMouseY());
+		AddBall(App->physics->player_1.x, App->physics->player_1.y + App->physics->player_1.h / 2.0f, App->input->GetMouseX(), App->input->GetMouseY(), 0);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP)
 	{
-		AddBall(1, 20, 0, 0);
+
 	}
 
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::AddBall(float x, float y, float X, float Y)
+void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientation)
 {
 	// Create a ball
 	PhysBall ball = PhysBall();
@@ -65,11 +65,22 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y)
 	ball.coef_friction = 0.9f; // [-]
 	ball.coef_restitution = 0.8f; // [-]
 
+	if (orientation >= 1)
+	{
+
+	}
+	else
+	{
+		LOG("%d", PIXEL_TO_METERS(Y));
+		LOG("%d", y);
+		ball.vx = PIXEL_TO_METERS(X)-x;
+		ball.vy = PIXEL_TO_METERS(Y)-y;
+	}
+
 	// Set initial position and velocity of the ball
 	ball.x = x;
 	ball.y = y;
-	ball.vx = 20.0f;
-	ball.vy = 10.0f;
+
 
 	// Add ball to the collection
 	App->physics->balls.emplace_back(ball);

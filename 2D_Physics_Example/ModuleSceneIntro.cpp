@@ -85,7 +85,7 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 
 	if (orientation == true)
 	{
-		ball.vx = PIXEL_TO_METERS(X)-x;
+		ball.vx = PIXEL_TO_METERS(X)-(x/2);
 		ball.vy = y/(PIXEL_TO_METERS(Y)/10);
 	}
 	else

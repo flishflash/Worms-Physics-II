@@ -215,15 +215,17 @@ update_status ModulePhysics::PreUpdate()
 					ball.vx *= ball.coef_friction;
 					ball.vy *= ball.coef_restitution;
 
-				}else{
+				}
+				else
+				{
 					if (ball.x > ground.x)
 					{
-						// TP ball to ground surface
+						// TP ball to ground right
 						ball.x = ground.w + ball.radius;
 					}
 					else
 					{
-						// TP ball to ground surface
+						// TP ball to ground left
 						ball.x = ground.x - ball.radius;
 					}
 

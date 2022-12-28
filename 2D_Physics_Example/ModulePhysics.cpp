@@ -165,29 +165,19 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 
-		if ((is_colliding_with_player(ball, player_1) && App->scene_intro->turns == 1) || (is_colliding_with_player(ball, player_2) && App->scene_intro->turns == 0))
+		if ((is_colliding_with_player(ball, player_1) && App->scene_intro->turns == false) || (is_colliding_with_player(ball, player_2) && App->scene_intro->turns == true))
 		{
 			balls.clear();
+			App->scene_intro->turns = !App->scene_intro->turns;
 		}
 
-		//// Solve collision between ball and ground
-		//if (is_colliding_with_ground(ball, ground))
-		//{
-		//		// TP ball to ground surface
-		//		ball.y = ground.y + ground.h + ball.radius;
 
-		//		// Elastic bounce with ground
-		//		ball.vy = -ball.vy;
-
-		//		// FUYM non-elasticity
-		//		ball.vx *= ball.coef_friction;
-		//		ball.vy *= ball.coef_restitution;
-		//}
 		for (auto& ground : grounds)
 		{
 
 			if (is_colliding_with_ground(ball, ground))
 			{
+
 				if (ball.y > ground.y + ground.h)
 				{
 					// TP ball to ground surface
@@ -202,6 +192,17 @@ update_status ModulePhysics::PreUpdate()
 				}
 				else
 				{
+					if (ball.x > ground.x)
+					{
+						// TP ball to ground surface
+						ball.x = ground.w + ball.radius;
+					}
+					else
+					{
+						// TP ball to ground surface
+						ball.x = ground.x - ball.radius;
+					}
+
 					// Elastic bounce with ground
 					ball.vx = -ball.vx;
 

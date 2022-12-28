@@ -38,15 +38,19 @@ update_status ModuleSceneIntro::Update()
 	{
 		App->physics->balls.clear();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_UP)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 	{
-		AddBall(App->physics->player_1.w, App->physics->player_1.y + App->physics->player_1.h / 2.0f, 2);
+		AddBall(App->physics->player_1.x, App->physics->player_1.y + App->physics->player_1.h / 2.0f, App->input->GetMouseX(), App->input->GetMouseY());
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP)
+	{
+		AddBall(1, 20, 0, 0);
 	}
 
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::AddBall(float x, float y, float angle)
+void ModuleSceneIntro::AddBall(float x, float y, float X, float Y)
 {
 	// Create a ball
 	PhysBall ball = PhysBall();

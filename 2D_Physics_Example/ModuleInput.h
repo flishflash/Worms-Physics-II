@@ -2,7 +2,10 @@
 #include "Module.h"
 #include "Globals.h"
 
-enum KEY_STATE
+
+#define NUM_MOUSE_BUTTONS 5
+
+enum KeyState
 {
 	KEY_IDLE = 0,
 	KEY_DOWN,
@@ -21,23 +24,34 @@ public:
 	update_status PreUpdate();
 	bool CleanUp();
 
-	KEY_STATE GetKey(int id) const
+	// Check key states (includes mouse and joy buttons)
+	KeyState GetKey(int id) const
 	{
 		return keyboard[id];
 	}
 
+	KeyState GetMouseButtonDown(int id) const
+	{
+		return mouseButtons[id - 1];
+	}
+
+
+	// Get mouse position
 	int GetMouseX() const
 	{
-		return mouse_x;
+		return mouseX;
 	}
 
 	int GetMouseY() const
 	{
-		return mouse_y;
+		return mouseY;
 	}
 
 private:
-	KEY_STATE* keyboard;
-	int mouse_x;
-	int mouse_y;
+	KeyState* keyboard;
+	KeyState mouseButtons[NUM_MOUSE_BUTTONS];
+	int	mouseMotionX;
+	int mouseMotionY;
+	int mouseX;
+	int mouseY;
 };

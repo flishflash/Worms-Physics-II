@@ -183,6 +183,7 @@ update_status ModulePhysics::PreUpdate()
 			ball.vx *= ball.coef_friction;
 			ball.vy *= ball.coef_restitution;
 		}
+
 	}
 
 	// Continue game
@@ -307,6 +308,12 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground)
 }
 
 // Detect collision with ground
+bool is_colliding_with_ball(const PhysBall& ball, const PhysBall& ball_)
+{
+	return check_collision_circle_circle(ball.x, ball.y, ball.radius, ball_.x, ball_.y, ball_.radius);
+}
+
+// Detect collision with ground
 bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player)
 {
 	float rect_x = (player.x + player.w / 2.0f); // Center of rectangle
@@ -345,6 +352,18 @@ bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, fl
 	float b = dist_y - rh / 2.0f;
 	float cornerDistance_sq = a * a + b * b;
 	return (cornerDistance_sq <= (cr * cr));
+}
+
+bool check_collision_circle_circle(float c1x, float c1y, float c1r, float c2x, float c2y, float c2r)
+{
+	// Distance from center of circle to center of rectangle
+	float dist_x = std::abs(c1x - c2x);
+	float dist_y = std::abs(c1y - c2y);
+
+	// If circle is further than half-rectangle, not intersecting
+	if ((sqrt(dist_x * dist_x + dist_y * dist_y)) > (c1r + c2r)) { return false; }
+
+	if ((sqrt(dist_x * dist_x + dist_y * dist_y)) <= (c1r + c2r)) { return false; }
 }
 
 // Convert from meters to pixels (for SDL drawing)

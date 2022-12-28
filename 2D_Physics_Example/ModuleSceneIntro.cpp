@@ -34,17 +34,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	SDL_Rect rect{10,10, 10, 10};
+	App->renderer->DrawQuad(rect, 255, 0, 0);
+
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_UP)
 	{
 		App->physics->balls.clear();
 	}
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 	{
-		AddBall(App->physics->player_1.x, App->physics->player_1.y + App->physics->player_1.h / 2.0f, App->input->GetMouseX(), App->input->GetMouseY(), 0);
-	}
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP)
-	{
-
+		AddBall(App->physics->player_1.x, App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
 	}
 
 	return UPDATE_CONTINUE;
@@ -67,14 +66,13 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 
 	if (orientation >= 1)
 	{
-
+		ball.vx = x-PIXEL_TO_METERS(X);
+		ball.vy = -y/(PIXEL_TO_METERS(Y)/50);
 	}
 	else
 	{
-		LOG("%d", PIXEL_TO_METERS(Y));
-		LOG("%d", y);
 		ball.vx = PIXEL_TO_METERS(X)-x;
-		ball.vy = PIXEL_TO_METERS(Y)-y;
+		ball.vy = y/ (PIXEL_TO_METERS(Y)/50);
 	}
 
 	// Set initial position and velocity of the ball

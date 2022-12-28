@@ -44,7 +44,7 @@ bool ModulePhysics::Start()
 	// Create ground
 	player_2 = Pplayer();
 	player_2.x = PIXEL_TO_METERS(768); // [m]
-	player_2.y = ground[0].h + 5.0f; // [m]
+	player_2.y = ground[1].h; // [m]
 	player_2.w = 1.0f; // [m]
 	player_2.h = 2.0f; // [m]
 
@@ -160,28 +160,40 @@ update_status ModulePhysics::PreUpdate()
 		// Solve collision between ball and ground
 		if (is_colliding_with_ground(ball, ground[0]))
 		{
-			// TP ball to ground surface
-			ball.y = ground[0].y + ground[0].h + ball.radius;
+				// TP ball to ground surface
+				ball.y = ground[0].y + ground[0].h + ball.radius;
 
-			// Elastic bounce with ground
-			ball.vy = - ball.vy;
+				// Elastic bounce with ground
+				ball.vy = -ball.vy;
 
-			// FUYM non-elasticity
-			ball.vx *= ball.coef_friction;
-			ball.vy *= ball.coef_restitution;
+				// FUYM non-elasticity
+				ball.vx *= ball.coef_friction;
+				ball.vy *= ball.coef_restitution;
 		}
 
 		if (is_colliding_with_ground(ball, ground[1]))
 		{
-			// TP ball to ground surface
-			ball.y = ground[1].y + ground[1].h + ball.radius;
+			if (ball.y > ground[1].y + ground[1].h)
+			{
+				// TP ball to ground surface
+				ball.y = ground[1].y + ground[1].h + ball.radius;
 
-			// Elastic bounce with ground
-			ball.vy = -ball.vy;
+				// Elastic bounce with ground
+				ball.vy = -ball.vy;
 
-			// FUYM non-elasticity
-			ball.vx *= ball.coef_friction;
-			ball.vy *= ball.coef_restitution;
+				// FUYM non-elasticity
+				ball.vx *= ball.coef_friction;
+				ball.vy *= ball.coef_restitution;
+			}
+			else
+			{
+				// Elastic bounce with ground
+				ball.vx = -ball.vx;
+
+				// FUYM non-elasticity
+				ball.vx *= ball.coef_friction;
+				ball.vy *= ball.coef_restitution;
+			}
 		}
 
 	}

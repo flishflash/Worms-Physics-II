@@ -60,6 +60,7 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);	
+				turns = !turns;
 			}
 		break;
 
@@ -83,6 +84,7 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
+				turns = !turns;
 			}
 		break;
 	}
@@ -93,10 +95,12 @@ update_status ModuleSceneIntro::Update()
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
 	{
 		turns = true;
+		jump = true;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_UP)
 	{
 		turns = false;
+		jump = false;
 	}
 
 	return UPDATE_CONTINUE;
@@ -119,13 +123,15 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 
 	if (orientation == true)
 	{
-		ball.vx = PIXEL_TO_METERS(X)-(x/2);
+		ball.vx = PIXEL_TO_METERS(X)-(x);
 		ball.vy = y/(PIXEL_TO_METERS(Y)/10);
+		ball.id = 1;
 	}
 	else
 	{
 		ball.vx = PIXEL_TO_METERS(X)-x;
 		ball.vy = y/(PIXEL_TO_METERS(Y)/30);
+		ball.id = 0;
 	}
 
 	// Set initial position and velocity of the ball

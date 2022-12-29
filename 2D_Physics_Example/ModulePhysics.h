@@ -50,6 +50,9 @@ public:
 
 	// Has physics enabled?
 	bool physics_enabled = true;
+
+	//ID
+	int id = 0;
 };
 
 // Class: Ground

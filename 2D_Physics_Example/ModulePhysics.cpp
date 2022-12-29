@@ -105,6 +105,8 @@ update_status ModulePhysics::PreUpdate()
 	for (auto& ball : balls)
 	{
 
+		if (ball.vx == 0 && ball.vy == 0) { balls.clear(); }
+
 		// Skip ball if physics not enabled
 		if (!ball.physics_enabled)
 		{
@@ -171,7 +173,7 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 
-		if ((is_colliding_with_player(ball, player_1) && App->scene_intro->turns == false) || (is_colliding_with_player(ball, player_2) && App->scene_intro->turns == true))
+		if ((is_colliding_with_player(ball, player_1) && ball.id == 1) || (is_colliding_with_player(ball, player_2) && ball.id == 0))
 		{
 			balls.clear();
 			App->scene_intro->turns = !App->scene_intro->turns;
@@ -214,7 +216,7 @@ update_status ModulePhysics::PreUpdate()
 					if (ball.x > ground.x)
 					{
 						// TP ball to ground right
-						ball.x = ground.w + ball.radius;
+						ball.x = ground.x + ground.w + ball.radius;
 					}
 					else
 					{
@@ -264,7 +266,6 @@ update_status ModulePhysics::PreUpdate()
 		//		}
 		//	}
 		//}
-
 	}
 		
 	// Continue game
@@ -308,7 +309,13 @@ update_status ModulePhysics::PostUpdate()
 		// Select color
 		if (ball.physics_enabled)
 		{
-			color_r = 255; color_g = 255; color_b = 255;
+			if (ball.id==0)
+			{ 
+				color_r = 150; color_g = 255; color_b = 150;
+			}
+			else {
+				color_r = 200; color_g = 70; color_b = 150;
+			}
 		}
 		else
 		{
@@ -412,10 +419,7 @@ bool is_colliding_ground_with_player(const Pplayer& player, const Ground& ground
 	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
 	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
 
-	float rect_x_ = (player.x + player.w / 2.0f); // Center of rectangle
-	float rect_y_ = (player.y + player.h / 2.0f); // Center of rectangle
-
-	return check_collision_rectangle_rectangle(rect_x, rect_y, ground.w, ground.h, rect_x_, rect_y_, player.w, player.h);
+	return check_collision_rectangle_rectangle(rect_x, rect_y, ground.w, ground.h, player.x, player.y, player.w, player.h);
 }
 
 // Detect collision between circle and rectange

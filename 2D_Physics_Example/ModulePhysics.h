@@ -73,10 +73,25 @@ public:
 	float vy; // Velocity y
 };
 
-// Class: Water
+// Class: Player
 class Pplayer : public Ground
 {
+public:
 
+	// Velocity
+	float vx;
+	float vy;
+
+	// Acceleration
+	float ax;
+	float ay;
+
+	// Force (total) applied to the ball
+	float fx;
+	float fy;
+
+	// Mass
+	float mass;
 };
 
 // Class: Atmosphere
@@ -129,6 +144,8 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, c
 
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBall& ball, float dt);
+
+void integrator_velocity_verlet_player(Pplayer& player, float dt);
 
 // Detect collision with ground
 bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);

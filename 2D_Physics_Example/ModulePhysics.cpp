@@ -105,30 +105,30 @@ update_status ModulePhysics::PreUpdate()
 	// Process all balls in the scenario
 
 	// Reset total acceleration and total accumulated force of the players
-	player_1.fx = player_1.fy = 0.0f;
-	player_1.ax = player_1.ay = 0.0f;
-	player_2.fx = player_2.fy = 0.0f;
-	player_2.ax = player_2.ay = 0.0f;
+	//player_1.fx = player_1.fy = 0.0f;
+	//player_1.ax = player_1.ay = 0.0f;
+	//player_2.fx = player_2.fy = 0.0f;
+	//player_2.ax = player_2.ay = 0.0f;
 
-	float fgx_1 = player_1.mass * 0.0f;
-	float fgy_1 = player_1.mass * -10.0f; // Let's assume gravity is constant and downwards
-	player_1.fx += fgx_1; player_1.fy += fgy_1; // Add this force to ball's total force
+	//float fgx_1 = player_1.mass * 0.0f;
+	//float fgy_1 = player_1.mass * -10.0f; // Let's assume gravity is constant and downwards
+	//player_1.fx += fgx_1; player_1.fy += fgy_1; // Add this force to ball's total force
 
-	float fgx_2 = player_2.mass * 0.0f;
-	float fgy_2 = player_2.mass * -10.0f; // Let's assume gravity is constant and downwards
-	player_2.fx += fgx_2; player_2.fy += fgy_2; // Add this force to ball's total force
+	//float fgx_2 = player_2.mass * 0.0f;
+	//float fgy_2 = player_2.mass * -10.0f; // Let's assume gravity is constant and downwards
+	//player_2.fx += fgx_2; player_2.fy += fgy_2; // Add this force to ball's total force
 
-	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	player_1.ax = player_1.fx / player_1.mass;
-	player_1.ay = player_1.fy / player_1.mass;
+	//// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
+	//player_1.ax = player_1.fx / player_1.mass;
+	//player_1.ay = player_1.fy / player_1.mass;
 
-	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	player_2.ax = player_2.fx / player_2.mass;
-	player_2.ay = player_2.fy / player_2.mass;
+	//// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
+	//player_2.ax = player_2.fx / player_2.mass;
+	//player_2.ay = player_2.fy / player_2.mass;
 
-	// We will use the 2nd order "Velocity Verlet" method for integration.
-	integrator_velocity_verlet_player(player_1, dt);
-	integrator_velocity_verlet_player(player_2, dt);
+	//// We will use the 2nd order "Velocity Verlet" method for integration.
+	//integrator_velocity_verlet_player(player_1, dt);
+	//integrator_velocity_verlet_player(player_2, dt);
 
 	for (auto& ground : grounds)
 	{
@@ -140,25 +140,24 @@ update_status ModulePhysics::PreUpdate()
 				// TP ball to ground surface
 				player_1.y = ground.y + ground.h;
 			}
-			else if (player_1.y < ground.y)
-			{
-				// TP ball to ground surface
-				player_1.y = ground.y - (player_1.h / 2);
-			}
-			else
-			{
-				if (player_1.x > ground.x)
-				{
-					// TP ball to ground right
-					//player_1.x = ground.x + ground.w + (player_1.w / 2);
-					
-				}
-				else
-				{
-					// TP ball to ground left
-					player_1.x = ground.x - (player_1.w / 2);
-				}
-			}
+			//else if (player_1.y < ground.y)
+			//{
+			//	// TP ball to ground surface
+			//	player_1.y = ground.y - (player_1.h / 2);
+			//}
+			//else
+			//{
+			//	if (player_1.x > ground.x)
+			//	{
+			//		// TP ball to ground right
+			//		player_1.x = ground.x + ground.w + (player_1.w / 2);
+			//	}
+			//	else
+			//	{
+			//		// TP ball to ground left
+			//		player_1.x = ground.x - (player_1.w / 2);
+			//	}
+			//}
 		}
 	}
 	
@@ -494,14 +493,14 @@ bool check_collision_rectangle_rectangle(float r1x, float r1y, float r1w, float 
 	if (dist_y > (r1h / 2.0f + r2y)) { return false; }
 	
 	// If circle is closer than half-rectangle, is intersecting
-	if (dist_x <= (0)) { return true; }
-	if (dist_y <= (0)) { return true; }
+	if (dist_x <= (r1w / 2.0f)) { return true; }
+	if (dist_y <= (r1h / 2.0f)) { return true; }
 
 	// If all of above fails, check corners
-	float a = dist_x - r2w / 2.0f;
-	float b = dist_y - r2h / 2.0f;
+	float a = dist_x - r1w / 2.0f;
+	float b = dist_y - r1h / 2.0f;
 	float cornerDistance_sq = a * a + b * b;
-	return (cornerDistance_sq <= ((r1w / 2.0f) * (r1w / 2.0f)));
+	return (cornerDistance_sq <= ((r1x) * (r1y)));
 }
 
 // Convert from meters to pixels (for SDL drawing)

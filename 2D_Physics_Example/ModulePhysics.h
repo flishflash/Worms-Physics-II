@@ -85,8 +85,6 @@ public:
 	float windy; // Wind y
 };
 
-
-
 class ModulePhysics : public Module
 {
 public:
@@ -135,6 +133,9 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);
 // Detect collision with player
 bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player);
 
+// Detect collision with player
+bool is_colliding_ground_with_player(const Pplayer& player, const Ground& ground);
+
 // Detect collision with water
 bool is_colliding_with_water(const PhysBall& ball, const Water& water);
 
@@ -144,6 +145,6 @@ bool is_colliding_with_ball(const PhysBall& ball, const PhysBall& ball_);
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
 
 // Detect collision between circle and circle
-bool check_collision_circle_circle(float c1x, float c1y, float c1r, float c2x, float c2y, float c2r);
+bool check_collision_rectangle_rectangle(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h);
 
 

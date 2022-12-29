@@ -77,9 +77,11 @@ public:
 	uint player_lose_fx;
 
 	void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientation);
+	void ModuleSceneIntro::AddGround(float x, float y);
 
 	bool turns;
 
 private:
+	bool jump;
 
 };

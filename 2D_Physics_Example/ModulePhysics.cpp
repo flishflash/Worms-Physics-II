@@ -43,13 +43,6 @@ bool ModulePhysics::Start()
 
 	grounds.emplace_back(ground);
 
-	ground.x = PIXEL_TO_METERS(768); // [m]
-	ground.y = 13.0f; // [m]
-	ground.w = 2.0f; // [m]
-	ground.h = 1.0f; // [m]
-
-	grounds.emplace_back(ground);
-
 	ground.x = 0.0f; // [m]
 	ground.y = 0.0f; // [m]
 	ground.w = 1.0f; // [m]
@@ -237,11 +230,43 @@ update_status ModulePhysics::PreUpdate()
 					ball.vy *= ball.coef_restitution;
 				}
 			}
+
+			
 		}
+
+		//for (auto& ground : grounds)
+		//{
+		//	if (is_colliding_ground_with_player(player_1, ground))
+		//	{
+
+		//		if (player_1.y > ground.y + ground.h)
+		//		{
+		//			// TP ball to ground surface
+		//			player_1.y = ground.y + ground.h + player_1.h;
+		//		}
+		//		else if (player_1.y < ground.y)
+		//		{
+		//			// TP ball to ground surface
+		//			player_1.y = ground.y - player_1.h;
+		//		}
+		//		else
+		//		{
+		//			if (player_1.x > ground.x)
+		//			{
+		//				// TP ball to ground right
+		//				player_1.x = ground.w + player_1.w;
+		//			}
+		//			else
+		//			{
+		//				// TP ball to ground left
+		//				player_1.x = ground.x - player_1.w;
+		//			}
+		//		}
+		//	}
+		//}
 
 	}
 		
-	
 	// Continue game
 	return UPDATE_CONTINUE;
 }
@@ -365,12 +390,6 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground)
 }
 
 // Detect collision with ground
-bool is_colliding_with_ball(const PhysBall& ball, const PhysBall& ball_)
-{
-	return check_collision_circle_circle(ball.x, ball.y, ball.radius, ball_.x, ball_.y, ball_.radius);
-}
-
-// Detect collision with ground
 bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player)
 {
 	float rect_x = (player.x + player.w / 2.0f); // Center of rectangle
@@ -385,6 +404,18 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water)
 	float rect_x = (water.x + water.w / 2.0f); // Center of rectangle
 	float rect_y = (water.y + water.h / 2.0f); // Center of rectangle
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, water.w, water.h);
+}
+
+// Detect collision with player
+bool is_colliding_ground_with_player(const Pplayer& player, const Ground& ground)
+{
+	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
+	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
+
+	float rect_x_ = (player.x + player.w / 2.0f); // Center of rectangle
+	float rect_y_ = (player.y + player.h / 2.0f); // Center of rectangle
+
+	return check_collision_rectangle_rectangle(rect_x, rect_y, ground.w, ground.h, rect_x_, rect_y_, player.w, player.h);
 }
 
 // Detect collision between circle and rectange
@@ -411,16 +442,25 @@ bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, fl
 	return (cornerDistance_sq <= (cr * cr));
 }
 
-bool check_collision_circle_circle(float c1x, float c1y, float c1r, float c2x, float c2y, float c2r)
+bool check_collision_rectangle_rectangle(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h)
 {
 	// Distance from center of circle to center of rectangle
-	float dist_x = std::abs(c1x - c2x);
-	float dist_y = std::abs(c1y - c2y);
+	float dist_x = std::abs(r1x - r2x);
+	float dist_y = std::abs(r1y - r2y);
 
 	// If circle is further than half-rectangle, not intersecting
-	if ((sqrt(dist_x * dist_x + dist_y * dist_y)) > (c1r + c2r)) { return false; }
+	if (dist_x > (r1w / 2.0f + r2w)) { return false; }
+	if (dist_y > (r1h / 2.0f + r2h)) { return false; }
+	
+	// If circle is closer than half-rectangle, is intersecting
+	if (dist_x <= (r2w / 2.0f)) { return true; }
+	if (dist_y <= (r2h / 2.0f)) { return true; }
 
-	if ((sqrt(dist_x * dist_x + dist_y * dist_y)) <= (c1r + c2r)) { return false; }
+	// If all of above fails, check corners
+	float a = dist_x - r2w / 2.0f;
+	float b = dist_y - r2h / 2.0f;
+	float cornerDistance_sq = a * a + b * b;
+	return (cornerDistance_sq <= ((r1w / 2.0f) * (r1w / 2.0f)));
 }
 
 // Convert from meters to pixels (for SDL drawing)

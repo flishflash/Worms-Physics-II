@@ -20,6 +20,7 @@ bool ModuleSceneIntro::Start()
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 	turns = true;
+	jump = true;
 
 	return ret;
 }
@@ -40,12 +41,45 @@ update_status ModuleSceneIntro::Update()
 	switch (turns)
 	{
 		case true:
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				App->physics->player_1.x -= 0.05f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump==true)
+			{
+				App->physics->player_1.y += 1.0f;
+				jump = false;
+				AddGround(App->physics->player_1.x, App->physics->player_1.y-1.0f);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				App->physics->player_1.x += 0.05f;
+			}
+
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);	
 			}
 		break;
+
 		case false:
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				App->physics->player_2.x -= 0.05f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump==false)
+			{
+				App->physics->player_2.y += 1.0f;
+				jump = true;
+				AddGround(App->physics->player_2.x, App->physics->player_2.y - 1.0f);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				App->physics->player_2.x += 0.05f;
+			}
+
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
@@ -101,4 +135,16 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 
 	// Add ball to the collection
 	App->physics->balls.emplace_back(ball);
+}
+void ModuleSceneIntro::AddGround(float x, float y)
+{
+	// Create a ball
+	Ground ground = Ground();
+
+	ground.x = x; // [m]
+	ground.y = y; // [m]
+	ground.w = 1.0f; // [m]
+	ground.h = 1.0f; // [m]
+
+	App->physics->grounds.emplace_back(ground);
 }

@@ -61,16 +61,16 @@ update_status ModuleSceneIntro::Update()
 						break;
 					case 2:
 						//water
-						App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 0, 255, 80);
+						App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 10, 40, 40 }, 0, 0, 255, 80);
 						if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 						{
-							AddWater(PIXEL_TO_METERS((App->input->GetMouseX()-10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY()+10)));
+							AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
 							choose_material = true;
 						}
 						break;
 					case 3:
 						//air
-						App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 120, 200, 100);
+						App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
 						if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 						{
 							AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
@@ -126,7 +126,7 @@ update_status ModuleSceneIntro::Update()
 					break;
 				case 2:
 					//water
-					App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 0, 255, 80);
+					App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 10, 40, 40 }, 0, 0, 255, 80);
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 					{
 						AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
@@ -135,7 +135,7 @@ update_status ModuleSceneIntro::Update()
 					break;
 				case 3:
 					//air
-					App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 120, 200, 100);
+					App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
 					if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 					{
 						AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
@@ -164,6 +164,7 @@ update_status ModuleSceneIntro::Update()
 			{
 				AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
 				turns = !turns;
+				choose_material = false;
 			}
 		break;
 	}
@@ -238,8 +239,8 @@ void ModuleSceneIntro::AddWater(float x, float y)
 	Water water = Water();
 	water.x = x; // Start where ground ends [m]
 	water.y = y; // [m]
-	water.w = 1.0f; // [m]
-	water.h = 1.0f; // [m]
+	water.w = 2.0f; // [m]
+	water.h = 2.0f; // [m]
 	water.density = 50.0f; // [kg/m^3]
 	water.vx = 0.0f; // [m/s]
 	water.vy = -1.0f; // [m/s]

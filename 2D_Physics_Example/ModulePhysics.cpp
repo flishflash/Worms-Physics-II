@@ -255,12 +255,12 @@ update_status ModulePhysics::PostUpdate()
 		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
 	}
 	
-	// Draw player
+	// Draw player_1
 	color_r = 255; color_g = 0; color_b = 0;
 	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
 
-	// Draw player
-	color_r = 255; color_g = 0; color_b = 0;
+	// Draw player_2
+	color_r = 200; color_g = 70; color_b = 150;
 	App->renderer->DrawQuad(player_2.pixels(), color_r, color_g, color_b);
 
 	for (auto& water : waters)
@@ -398,7 +398,6 @@ bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player)
 {
 	float rect_x = (player.x + player.w / 2.0f); // Center of rectangle
 	float rect_y = (player.y + player.h / 2.0f); // Center of rectangle
-
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, player.w, player.h);
 }
 

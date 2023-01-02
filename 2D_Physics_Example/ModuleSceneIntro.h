@@ -78,10 +78,14 @@ public:
 
 	void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientation);
 	void ModuleSceneIntro::AddGround(float x, float y);
+	void ModuleSceneIntro::AddWater(float x, float y);
+	void ModuleSceneIntro::AddAir(float x, float y);
 
 	bool turns;
 
 private:
 	bool jump;
+	int material;
+	bool choose_material;
 
 };

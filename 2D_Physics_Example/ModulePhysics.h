@@ -73,6 +73,13 @@ public:
 	float vy; // Velocity y
 };
 
+// Class: Air
+class Air : public Ground
+{
+public:
+
+};
+
 // Class: Player
 class Pplayer : public Ground
 {
@@ -121,6 +128,7 @@ public:
 	Pplayer player_2{};
 	std::vector<Ground> grounds{};
 	std::vector<Water> waters{};
+	std::vector<Air> airs{};
 
 	// Misc
 	float dt = 1.0 / 60.0;
@@ -149,6 +157,8 @@ void integrator_velocity_verlet_player(Pplayer& player, float dt);
 
 // Detect collision with ground
 bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);
+
+bool is_colliding_with_air(const PhysBall& ball, const Air& air);
 
 // Detect collision with player
 bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player);

@@ -80,22 +80,11 @@ bool ModulePhysics::Start()
 	player_2.h = 2.0f; // [m]
 	player_2.mass = 20.0f;
 
-
-	// Create Water
-	//water = Water();
-	//water.x = ground.x + ground.w; // Start where ground ends [m]
-	//water.y = 0.0f; // [m]
-	//water.w = 30.0f; // [m]
-	//water.h = 5.0f; // [m]
-	//water.density = 50.0f; // [kg/m^3]
-	//water.vx = -1.0f; // [m/s]
-	//water.vy = 0.0f; // [m/s]
-
 	// Create atmosphere
 	atmosphere = Atmosphere();
-	atmosphere.windx = 10.0f; // [m/s]
-	atmosphere.windy = 5.0f; // [m/s]
-	atmosphere.density = 1.0f; // [kg/m^3]
+	atmosphere.windx = -10.0f; // [m/s]
+	atmosphere.windy = 25.0f; // [m/s]
+	atmosphere.density = 5.0f; // [kg/m^3]
 
 	return true;
 }
@@ -103,94 +92,6 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	// Process all balls in the scenario
-
-	//Reset total acceleration and total accumulated force of the players
-	player_1.fx = player_1.fy = 0.0f;
-	player_1.ax = player_1.ay = 0.0f;
-	player_2.fx = player_2.fy = 0.0f;
-	player_2.ax = player_2.ay = 0.0f;
-
-	float fgx_1 = player_1.mass * 0.0f;
-	float fgy_1 = player_1.mass * -20.0f; // Let's assume gravity is constant and downwards
-	player_1.fx += fgx_1; player_1.fy += fgy_1; // Add this force to ball's total force
-
-	float fgx_2 = player_2.mass * 0.0f;
-	float fgy_2 = player_2.mass * -20.0f; // Let's assume gravity is constant and downwards
-	player_2.fx += fgx_2; player_2.fy += fgy_2; // Add this force to ball's total force
-
-	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	player_1.ax = player_1.fx / player_1.mass;
-	player_1.ay = player_1.fy / player_1.mass;
-
-	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	player_2.ax = player_2.fx / player_2.mass;
-	player_2.ay = player_2.fy / player_2.mass;
-
-	// We will use the 2nd order "Velocity Verlet" method for integration.
-	integrator_velocity_verlet_player(player_1, dt);
-	integrator_velocity_verlet_player(player_2, dt);
-
-	for (auto& ground : grounds)
-	{
-		if (is_colliding_ground_with_player(player_1, ground))
-		{
-			//r2y < r1y + r1h
-			if (player_1.y + player_1.h > ground.y + ground.h)
-			{
-				// TP ball to ground surface
-				player_1.y = ground.y + ground.h;
-				player_1.vy = 0;
-			}
-			else if (player_1.y < ground.y)
-			{
-				// TP ball to ground surface
-				player_1.y = ground.y - player_1.h;
-			}
-			else
-			{
-				if (player_1.x > ground.x)
-				{
-					// TP ball to ground right
-					player_1.x = ground.x + ground.w;
-				}
-				else
-				{
-					// TP ball to ground left
-					player_1.x = ground.x - player_1.w;		
-				}
-			}
-		}
-
-		if (is_colliding_ground_with_player(player_2, ground))
-		{
-			//r2y < r1y + r1h
-			if (player_2.y + player_2.h > ground.y + ground.h)
-			{
-				// TP ball to ground surface
-				player_2.y = ground.y + ground.h;
-				player_2.vy = 0;
-			}
-			else if (player_2.y < ground.y)
-			{
-				// TP ball to ground surface
-				player_2.y = ground.y - player_2.h;
-			}
-			else
-			{
-				if (player_2.x > ground.x)
-				{
-					// TP ball to ground right
-					player_2.x = ground.x + ground.w;
-				}
-				else
-				{
-					// TP ball to ground left
-					player_2.x = ground.x - player_2.w;
-				}
-			}
-		}
-	}
-	
 
 	for (auto& ball : balls)
 	{
@@ -243,6 +144,17 @@ update_status ModulePhysics::PreUpdate()
 				ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
 			}
 		}
+
+		for (auto& air : airs)
+		{
+			if (is_colliding_with_air(ball, air))
+			{
+				float fdx = 0.0f; float fdy = 0.0f;
+				compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
+				ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+			}
+		}
+
 		// Other forces
 		// ...
 
@@ -358,6 +270,14 @@ update_status ModulePhysics::PostUpdate()
 		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 	}
 
+	for (auto& air : airs)
+	{
+		// Draw water
+		color_r = 0; color_g = 120; color_b = 200;
+		App->renderer->DrawQuad(air.pixels(), color_r, color_g, color_b);
+	}
+
+
 	// Draw all balls in the scenario
 	for (auto& ball : balls)
 	{
@@ -463,6 +383,14 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground)
 	float rect_x = (ground.x + ground.w / 2.0f); // Center of rectangle
 	float rect_y = (ground.y + ground.h / 2.0f); // Center of rectangle
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, ground.w, ground.h);
+}
+
+// Detect collision with ground
+bool is_colliding_with_air(const PhysBall& ball, const Air& air)
+{
+	float rect_x = (air.x + air.w / 2.0f); // Center of rectangle
+	float rect_y = (air.y + air.h / 2.0f); // Center of rectangle
+	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, air.w, air.h);
 }
 
 // Detect collision with ground

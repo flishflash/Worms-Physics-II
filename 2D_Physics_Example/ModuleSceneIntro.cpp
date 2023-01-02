@@ -41,115 +41,115 @@ update_status ModuleSceneIntro::Update()
 
 	switch (turns)
 	{
-		case true:
-			if (choose_material == false)
-			{
-				if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP) material = 1;
-				if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP) material = 2;
-				if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP) material = 3;
+	case true:
+		if (choose_material == false)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP) material = 1;
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP) material = 2;
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP) material = 3;
 
-				switch (material)
+			switch (material)
+			{
+			case 1:
+				//ground
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 255, 0, 50);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 				{
-					case 1:
-						//ground
-						App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 255, 0, 50);
-						if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-						{
-							AddGround(PIXEL_TO_METERS((App->input->GetMouseX()-10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY()+10)));
-							choose_material = true;
-						}
-						break;
-					case 2:
-						//water
-						App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 10, 40, 40 }, 0, 0, 255, 80);
-						if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-						{
-							AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
-							choose_material = true;
-						}
-						break;
-					case 3:
-						//air
-						App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
-						if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-						{
-							AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
-							choose_material = true;
-						}
-						break;
+					AddGround(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
 				}
+				break;
+			case 2:
+				//water
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 0, 255, 80);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+				{
+					AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
+				}
+				break;
+			case 3:
+				//air
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+				{
+					AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
+				}
+				break;
+			}
+		}
+
+		if (choose_material == true)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				App->physics->player_1.x -= 0.05f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump == true)
+			{
+				App->physics->player_1.y += 1.0f;
+				jump = false;
+				AddGround(App->physics->player_1.x, App->physics->player_1.y - 1.0f);
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				App->physics->player_1.x += 0.05f;
 			}
 
-			if (choose_material==true)
+			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
-				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-				{
-					App->physics->player_1.x -= 0.05f;
-				}
-				if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump == true)
-				{
-					App->physics->player_1.y += 1.0f;
-					jump = false;
-					AddGround(App->physics->player_1.x, App->physics->player_1.y - 1.0f);
-				}
-				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-				{
-					App->physics->player_1.x += 0.05f;
-				}
-
-				if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-				{
-					AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);
-					turns = !turns; choose_material = false;
-				}
+				AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);
+				turns = !turns; choose_material = false;
 			}
+		}
 		break;
 
-		case false:
+	case false:
 
-			if (choose_material == false)
+		if (choose_material == false)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP) material = 1;
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP) material = 2;
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP) material = 3;
+
+			switch (material)
 			{
-				if (App->input->GetKey(SDL_SCANCODE_1) == KEY_UP) material = 1;
-				if (App->input->GetKey(SDL_SCANCODE_2) == KEY_UP) material = 2;
-				if (App->input->GetKey(SDL_SCANCODE_3) == KEY_UP) material = 3;
-
-				switch (material)
+			case 1:
+				//ground
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 255, 0, 50);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
 				{
-				case 1:
-					//ground
-					App->renderer->DrawQuad({ App->input->GetMouseX() - 10, App->input->GetMouseY() - 10, 20, 20 }, 0, 255, 0, 50);
-					if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-					{
-						AddGround(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
-						choose_material = true;
-					}
-					break;
-				case 2:
-					//water
-					App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 10, 40, 40 }, 0, 0, 255, 80);
-					if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-					{
-						AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
-						choose_material = true;
-					}
-					break;
-				case 3:
-					//air
-					App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
-					if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-					{
-						AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
-						choose_material = true;
-					}
-					break;
+					AddGround(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
 				}
+				break;
+			case 2:
+				//water
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 0, 255, 80);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+				{
+					AddWater(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
+				}
+				break;
+			case 3:
+				//air
+				App->renderer->DrawQuad({ App->input->GetMouseX() - 20, App->input->GetMouseY() - 20, 40, 40 }, 0, 120, 200, 100);
+				if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+				{
+					AddAir(PIXEL_TO_METERS((App->input->GetMouseX() - 10)), 36 - PIXEL_TO_METERS((App->input->GetMouseY() + 10)));
+					choose_material = true;
+				}
+				break;
 			}
-
+		}
+		else {
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
 				App->physics->player_2.x -= 0.05f;
 			}
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump==false)
+			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump == false)
 			{
 				App->physics->player_2.y += 1.0f;
 				jump = true;
@@ -166,23 +166,24 @@ update_status ModuleSceneIntro::Update()
 				turns = !turns;
 				choose_material = false;
 			}
-		break;
+			break;
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_UP)
-	{
-		App->physics->balls.clear();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
-	{
-		turns = true;
-		jump = true;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_UP)
-	{
-		turns = false;
-		jump = false;
-	}
-
+		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_UP)
+		{
+			App->physics->balls.clear();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
+		{
+			turns = true;
+			jump = true;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_UP)
+		{
+			turns = false;
+			jump = false;
+		}
+	
 	return UPDATE_CONTINUE;
 }
 

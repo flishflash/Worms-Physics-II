@@ -135,7 +135,7 @@ update_status ModulePhysics::PreUpdate()
 		if (is_colliding_ground_with_player(player_1, ground))
 		{
 			//r2y < r1y + r1h
-			if (player_1.y + player_1.h > ground.h)
+			if (player_1.y + player_1.h > ground.y + ground.h)
 			{
 				// TP ball to ground surface
 				player_1.y = ground.y + ground.h;
@@ -157,6 +157,35 @@ update_status ModulePhysics::PreUpdate()
 				{
 					// TP ball to ground left
 					player_1.x = ground.x - player_1.w;		
+				}
+			}
+		}
+
+		if (is_colliding_ground_with_player(player_2, ground))
+		{
+			//r2y < r1y + r1h
+			if (player_2.y + player_2.h > ground.y + ground.h)
+			{
+				// TP ball to ground surface
+				player_2.y = ground.y + ground.h;
+				player_2.vy = 0;
+			}
+			else if (player_2.y < ground.y)
+			{
+				// TP ball to ground surface
+				player_2.y = ground.y - player_2.h;
+			}
+			else
+			{
+				if (player_2.x > ground.x)
+				{
+					// TP ball to ground right
+					player_2.x = ground.x + ground.w;
+				}
+				else
+				{
+					// TP ball to ground left
+					player_2.x = ground.x - player_2.w;
 				}
 			}
 		}

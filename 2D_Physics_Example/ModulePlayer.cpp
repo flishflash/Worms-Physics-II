@@ -2,9 +2,17 @@
 #include "Application.h"
 #include "ModulePlayer.h"
 #include "PhysBody.h"
+#include "ModulePlayer.h"
+#include "Animation.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	for (int i = 0; i < 5; i++) {
+
+		P1_idle.PushBack({ 48 * (0 + i), 0, 48, 39 });
+	}
+	P1_idle.loop = true;
+	P1_idle.speed = 0.05f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -14,7 +22,7 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-
+	texture = App->textures->Load(path_p1);
 
 	return true;
 }
@@ -31,6 +39,8 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	//Reset total acceleration and total accumulated force of the players
+	currentAnimation = &P1_idle;
+
 	App->physics->player_1.fx = App->physics->player_1.fy = 0.0f;
 	App->physics->player_1.ax = App->physics->player_1.ay = 0.0f;
 	App->physics->player_2.fx = App->physics->player_2.fy = 0.0f;

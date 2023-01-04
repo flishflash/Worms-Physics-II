@@ -32,6 +32,8 @@ public:
 
 public:
 
+	SDL_Texture* texture;
+
 	Object ball;
 	Object flipper1;
 	Object flipper2;
@@ -47,4 +49,10 @@ public:
 	PhysBody* flipper_up2_wheel;
 
 	PhysBody* sensor1;
+
+	const char* path_p1 = "Assets/player1.png";
+	const char* path_p2 = NULL;
+
+	Animation* currentAnimation = nullptr;
+	Animation P1_idle;
 };

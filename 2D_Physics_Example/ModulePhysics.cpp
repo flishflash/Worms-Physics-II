@@ -1,4 +1,5 @@
 #include "Globals.h"
+#include "ModulePlayer.h"
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "math.h"
@@ -9,6 +10,13 @@
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	debug = true;
+	for (int i = 0; i < 5; i++) {
+
+		P1_idle.PushBack({ 48 * (0 + i), 0, 48, 39 });
+	}
+	P1_idle.loop = true;
+	P1_idle.speed = 0.05f;
+
 }
 
 // Destructor
@@ -72,6 +80,7 @@ bool ModulePhysics::Start()
 	player_1.h = 2.0f; // [m]
 	player_1.mass = 20.0f;
 
+
 	// Create player_2
 	player_2 = Pplayer();
 	player_2.x = PIXEL_TO_METERS(788); // [m]
@@ -86,6 +95,10 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 25.0f; // [m/s]
 	atmosphere.density = 5.0f; // [kg/m^3]
 
+<<<<<<< Updated upstream
+=======
+	texture = App->textures->Load(path_p1);
+>>>>>>> Stashed changes
 
 	return true;
 }
@@ -257,8 +270,9 @@ update_status ModulePhysics::PostUpdate()
 	}
 	
 	// Draw player_1
-	color_r = 255; color_g = 0; color_b = 0;
-	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
+	//color_r = 255; color_g = 0; color_b = 0;
+	//App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
+	currentAnimation = &P1_idle;
 
 	// Draw player_2
 	color_r = 200; color_g = 70; color_b = 150;

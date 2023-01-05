@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "Animation.h"
 #include <vector>
 
 
@@ -137,6 +138,12 @@ public:
 	// Misc
 	float dt = 1.0 / 60.0;
 
+	//Animations
+	SDL_Texture* texture;
+	Animation* currentAnimation = nullptr;
+	Animation P1_idle;
+	const char* path_p1 = "Assets/player1.png";
+	const char* path_p2 = NULL;
 private:
 
 	bool debug;

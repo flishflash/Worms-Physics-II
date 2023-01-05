@@ -38,6 +38,56 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		debug = true;
+	}
+	if (debug == true) {
+		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				App->physics->gry += 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				App->physics->gry -= 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+				fgcopy = App->physics->gry;
+				App->physics->gry = 0;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->physics->gry == 0) {
+				App->physics->gry = fgcopy;
+			}
+
+		}
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				App->physics->atmosphere.windy += 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				App->physics->atmosphere.windy -= 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				App->physics->atmosphere.windx += 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+				App->physics->atmosphere.windx -= 0.5;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+				fwxcopy = App->physics->atmosphere.windx;
+				fwycopy = App->physics->atmosphere.windy;
+				App->physics->atmosphere.windy = 0;
+				App->physics->atmosphere.windx = 0;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+				if (App->physics->atmosphere.windy == 0) {
+					App->physics->atmosphere.windy = fwycopy;
+				}
+				if (App->physics->atmosphere.windx == 0) {
+					App->physics->atmosphere.windx = fwxcopy;
+				}
+			}
+		}
+	}
 
 	switch (turns)
 	{

@@ -87,5 +87,9 @@ private:
 	bool jump;
 	int material;
 	bool choose_material;
+	bool debug = false;
+	float fgcopy;
+	float fwxcopy;
+	float fwycopy;
 
 };

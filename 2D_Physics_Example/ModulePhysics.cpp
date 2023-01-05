@@ -86,6 +86,7 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 25.0f; // [m/s]
 	atmosphere.density = 5.0f; // [kg/m^3]
 
+
 	return true;
 }
 
@@ -115,8 +116,8 @@ update_status ModulePhysics::PreUpdate()
 		// ----------------------------------------------------------------------------------------
 
 		// Gravity force
-		float fgx = ball.mass * 0.0f;
-		float fgy = ball.mass * -10.0f; // Let's assume gravity is constant and downwards
+		float fgx = ball.mass * grx;
+		float fgy = ball.mass * gry; // Let's assume gravity is constant and downwards
 		ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
 
 		for (auto& water : waters)

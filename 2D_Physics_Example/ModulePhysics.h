@@ -130,6 +130,10 @@ public:
 	std::vector<Water> waters{};
 	std::vector<Air> airs{};
 
+	//Gravity
+	float grx = 0.0f;
+	float gry = -10.0f;
+
 	// Misc
 	float dt = 1.0 / 60.0;
 

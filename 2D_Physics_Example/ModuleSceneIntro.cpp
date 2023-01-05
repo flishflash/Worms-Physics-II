@@ -23,6 +23,8 @@ bool ModuleSceneIntro::Start()
 	jump = true;
 	material = 1;
 	choose_material = false;
+	vientesito = false;
+	coef = true;
 
 	return ret;
 }
@@ -40,6 +42,7 @@ update_status ModuleSceneIntro::Update()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		debug = true;
+		LOG("Debug");
 	}
 	if (debug == true) {
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT) {
@@ -56,21 +59,20 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && App->physics->gry == 0) {
 				App->physics->gry = fgcopy;
 			}
-
 		}
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-				App->physics->atmosphere.windy += 0.5;
+				App->physics->atmosphere.windy += 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
-				App->physics->atmosphere.windy -= 0.5;
+				App->physics->atmosphere.windy -= 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-				App->physics->atmosphere.windx += 0.5;
+				App->physics->atmosphere.windx += 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-				App->physics->atmosphere.windx -= 0.5;
+				App->physics->atmosphere.windx -= 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 				fwxcopy = App->physics->atmosphere.windx;
@@ -86,6 +88,15 @@ update_status ModuleSceneIntro::Update()
 					App->physics->atmosphere.windx = fwxcopy;
 				}
 			}
+			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+			{
+				vientesito = !vientesito;
+			}
+
+		}
+		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		{
+			coef = !coef;
 		}
 	}
 
@@ -136,7 +147,7 @@ update_status ModuleSceneIntro::Update()
 			{
 				App->physics->player_1.x -= 0.05f;
 			}
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump == true)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == true)
 			{
 				App->physics->player_1.y += 1.0f;
 				jump = false;
@@ -222,6 +233,7 @@ update_status ModuleSceneIntro::Update()
 		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_UP)
 		{
 			App->physics->balls.clear();
+			App->physics->airs.clear();
 		}
 		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
 		{

@@ -86,7 +86,6 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 25.0f; // [m/s]
 	atmosphere.density = 5.0f; // [kg/m^3]
 
-
 	return true;
 }
 
@@ -120,20 +119,23 @@ update_status ModulePhysics::PreUpdate()
 		float fgy = ball.mass * gry; // Let's assume gravity is constant and downwards
 		ball.fx += fgx; ball.fy += fgy; // Add this force to ball's total force
 
+
+		// Aerodynamic Drag force (only when not in water)
+		if (App->scene_intro->vientesito == true)
+		{
+			float fdx = 0.0f; float fdy = 0.0f;
+			compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
+			ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
+		}
+
 		for (auto& water : waters)
 		{
-
-			// Aerodynamic Drag force (only when not in water)
-			if (!is_colliding_with_water(ball, water))
-			{
-				float fdx = 0.0f; float fdy = 0.0f;
-				//compute_aerodynamic_drag(fdx, fdy, ball, atmosphere);
-				//ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
-			}
 
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
+				App->scene_intro->vientesito = false;
+
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
 				compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
@@ -196,10 +198,12 @@ update_status ModulePhysics::PreUpdate()
 
 					// Elastic bounce with ground
 					ball.vy = -ball.vy;
-
-					// FUYM non-elasticity
-					ball.vx *= ball.coef_friction;
-					ball.vy *= ball.coef_restitution;
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
 				}
 				else if(ball.y < ground.y)
 				{
@@ -209,9 +213,12 @@ update_status ModulePhysics::PreUpdate()
 					// Elastic bounce with ground
 					ball.vy = -ball.vy;
 
-					// FUYM non-elasticity
-					ball.vx *= ball.coef_friction;
-					ball.vy *= ball.coef_restitution;
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
 
 				}
 				else
@@ -230,9 +237,12 @@ update_status ModulePhysics::PreUpdate()
 					// Elastic bounce with ground
 					ball.vx = -ball.vx;
 
-					// FUYM non-elasticity
-					ball.vx *= ball.coef_friction;
-					ball.vy *= ball.coef_restitution;
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
 				}
 			}
 

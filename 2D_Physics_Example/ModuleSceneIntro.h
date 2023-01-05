@@ -82,6 +82,8 @@ public:
 	void ModuleSceneIntro::AddAir(float x, float y);
 
 	bool turns;
+	bool vientesito;
+	bool coef;
 
 private:
 	bool jump;
@@ -91,5 +93,4 @@ private:
 	float fgcopy;
 	float fwxcopy;
 	float fwycopy;
-
 };

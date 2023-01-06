@@ -266,7 +266,6 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
-
 		for (auto& ground : grounds)
 		{
 

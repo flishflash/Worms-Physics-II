@@ -35,21 +35,33 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	int x = (App->physics->player_1.x*20);
-	int h = ((36-(App->physics->player_1.y + App->physics->player_1.h)) * 20);
+	int x_1 = (App->physics->player_1.x * 20);
+	int h_1 = ((36 - (App->physics->player_1.y + App->physics->player_1.h)) * 20);
 	int x_2 = (App->physics->player_2.x * 20);
 	int h_2 = ((36 - (App->physics->player_2.y + App->physics->player_2.h)) * 20);
 	//Print Vidas
 	for(int i=0; i<vida_1; i++)
 	{
-		App->renderer->DrawQuad({(x-2)+(5*i),(h-20), 5,5}, 255, 0, 0);
+		App->renderer->DrawQuad({(x_1-2)+(5*i),(h_1-20), 5,5}, 255, 0, 0);
 	}
 	for (int i = 0; i < vida_2; i++)
 	{
 		App->renderer->DrawQuad({ (x_2 - 2) + (5 * i),(h_2 - 20), 5,5}, 255, 0, 0);
 	}
 
+	if (App->scene_intro->turns)
+	{
+		int x = ((App->physics->player_1.x + (App->physics->player_1.w / 2)) * 20);
+		int h = ((36 - (App->physics->player_1.y + App->physics->player_1.h)) * 20);
 
+		App->renderer->DrawQuad({ (x-5),(h - 40), 10,10 }, 255, 255, 0);
+	}else
+	{
+		int x = ((App->physics->player_2.x + (App->physics->player_2.w / 2)) * 20);
+		int h = ((36 - (App->physics->player_2.y + App->physics->player_2.h)) * 20);
+
+		App->renderer->DrawQuad({ (x-5),(h - 40), 10,10 }, 255, 255, 0);
+	}
 
 	//Reset total acceleration and total accumulated force of the players
 	App->physics->player_1.fx = App->physics->player_1.fy = 0.0f;

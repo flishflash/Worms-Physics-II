@@ -139,6 +139,14 @@ public:
 	float grx = 0.0f;
 	float gry = -10.0f;
 
+	//Ball velocity
+	int bvx;
+	int bvy;
+
+	//Total force ball
+	int bfx;
+	int bfy;
+
 	// Misc
 	float dt = 1.0 / 60.0;
 

@@ -393,9 +393,11 @@ update_status ModulePhysics::PreUpdate()
 
 
 		}
-
+		bvx = ball.vx;
+		bvy = ball.vy;
+		bfx = ball.fx;
+		bfy = ball.fy;
 	}
-		
 	// Continue game
 	return UPDATE_CONTINUE;
 }

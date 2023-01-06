@@ -89,7 +89,7 @@ public:
 
 	// Font score index
 	uint score = 000;
-	int scoreFont = -1;
+	float scoreFont = -1.0f;
 	char scoreText[10] = { "\0" };
 
 	uint highscore = 000;
@@ -99,6 +99,11 @@ public:
 	char Friction[10] = { "\0" };
 	char BouyancyX[10] = { "\0" };
 	char BouyancyY[10] = { "\0" };
+	char xp[10] = { "\0" };
+	char vbx[10] = { "\0" };
+	char vby[10] = { "\0" };
+	char fbx[10] = { "\0" };
+	char fby[10] = { "\0" };
 
 private:
 	bool jump;

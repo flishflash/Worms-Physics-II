@@ -316,12 +316,16 @@ update_status ModuleSceneIntro::Update()
 			jump = false; choose_material = false;
 		}
 
-	sprintf_s(GravityT, 10.0f, "%7d", App->physics->gry);
+	sprintf_s(GravityT, 10, "%7d", App->physics->gry);
 	sprintf_s(WindX, 10, "%7d", App->physics->atmosphere.windx);
 	sprintf_s(WindY, 10, "%7d", App->physics->atmosphere.windy);
 	sprintf_s(Friction, 10, "%7d", coef);
 	sprintf_s(BouyancyX, 10, "%7d", App->physics->vx);
 	sprintf_s(BouyancyY, 10, "%7d", App->physics->vy);
+	sprintf_s(vbx, 10, "%7d", App->physics->bvx);
+	sprintf_s(vby, 10, "%7d", App->physics->bvy);
+	sprintf_s(fbx, 10, "%7d", App->physics->bfx);
+	sprintf_s(fby, 10, "%7d", App->physics->bfy);
 
 	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
 	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");
@@ -329,6 +333,10 @@ update_status ModuleSceneIntro::Update()
 	App->fonts->BlitText(40, 140, scoreFont, "FRICTION:");
 	App->fonts->BlitText(40, 175, scoreFont, "BOUYANCY X:");
 	App->fonts->BlitText(40, 210, scoreFont, "BOUYANCY Y:");
+	App->fonts->BlitText(40, 245, scoreFont, "VELOCITY BALL X:");
+	App->fonts->BlitText(40, 280, scoreFont, "VELOCITY BALL Y:");
+	App->fonts->BlitText(40, 315, scoreFont, "TOTAL FX BALL:");
+	App->fonts->BlitText(40, 350, scoreFont, "TOTAL FY BALL:");
 
 	//highscore
 	App->fonts->BlitText(90, 35, scoreFont, GravityT);
@@ -337,6 +345,10 @@ update_status ModuleSceneIntro::Update()
 	App->fonts->BlitText(90, 140, scoreFont, Friction);
 	App->fonts->BlitText(90, 175, scoreFont, BouyancyX);
 	App->fonts->BlitText(90, 210, scoreFont, BouyancyY);
+	App->fonts->BlitText(120, 245, scoreFont, vbx);
+	App->fonts->BlitText(120, 280, scoreFont, vby);
+	App->fonts->BlitText(120, 315, scoreFont, fbx);
+	App->fonts->BlitText(120, 350, scoreFont, fby);
 	
 	return UPDATE_CONTINUE;
 }

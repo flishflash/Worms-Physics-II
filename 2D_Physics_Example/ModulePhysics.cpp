@@ -95,6 +95,10 @@ bool ModulePhysics::Start()
 	atmosphere.windy = 25.0f; // [m/s]
 	atmosphere.density = 5.0f; // [kg/m^3]
 
+	//Init water
+	vy = -1.0f;
+	vx = 0.0f;
+
 	texture = App->textures->Load(path_p1);
 
 	return true;
@@ -102,8 +106,14 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
-	// Process all balls in the scenario
+	// Create water
+	water = Water();
+	water.density = 50.0f; // [kg/m^3]
+	water.vx = vx; // [m/s]
+	water.vy = vy; // [m/s]
 
+
+	// Process all balls in the scenario
 	for (auto& ball : balls)
 	{
 
@@ -159,6 +169,26 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
+		for (auto& water : debug_water)
+		{
+
+			// Hydrodynamic forces (only when in water)
+			if (is_colliding_with_water(ball, water))
+			{
+				App->scene_intro->vientesito = false;
+
+				// Hydrodynamic Drag force
+				float fhdx = 0.0f; float fhdy = 0.0f;
+				compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
+				ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
+
+				// Hydrodynamic Buoyancy force
+				float fhbx = 0.0f; float fhby = 0.0f;
+				compute_hydrodynamic_buoyancy(fhbx, fhby, ball, water);
+				ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
+			}
+		}
+
 		for (auto& air : airs)
 		{
 			if (is_colliding_with_air(ball, air))
@@ -192,7 +222,15 @@ update_status ModulePhysics::PreUpdate()
 		if ((is_colliding_with_player(ball, player_1) && ball.id == 1) || (is_colliding_with_player(ball, player_2) && ball.id == 0))
 		{
 			balls.clear();
-			App->scene_intro->turns = !App->scene_intro->turns;
+			App->scene_intro->choose_material = false;
+			if (ball.id == 1)
+			{
+				App->player->vida_1--;
+			}
+			else
+			{
+				App->player->vida_2--;
+			}
 		}
 
 
@@ -278,8 +316,8 @@ update_status ModulePhysics::PostUpdate()
 	}
 	
 	// Draw player_1
-	//color_r = 255; color_g = 0; color_b = 0;
-	//App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
+	color_r = 255; color_g = 0; color_b = 0;
+	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
 	currentAnimation = &P1_idle;
 
 	// Draw player_2
@@ -291,6 +329,13 @@ update_status ModulePhysics::PostUpdate()
 		// Draw water
 		color_r = 0; color_g = 0; color_b = 255;
 		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+	}
+
+	for (auto& water : debug_water)
+	{
+		// Draw water
+		color_r = 0; color_g = 0; color_b = 255;
+		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b, 90);
 	}
 
 	for (auto& air : airs)

@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-
+#include<ctime>
 
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -25,6 +25,7 @@ bool ModuleSceneIntro::Start()
 	choose_material = false;
 	vientesito = false;
 	coef = true;
+	debugWater = false;
 
 	return ret;
 }
@@ -45,11 +46,14 @@ update_status ModuleSceneIntro::Update()
 		LOG("Debug");
 	}
 	if (debug == true) {
+		//GRAVITY
 		if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT) {
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->gry += 0.5;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->gry -= 0.5;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
@@ -60,18 +64,23 @@ update_status ModuleSceneIntro::Update()
 				App->physics->gry = fgcopy;
 			}
 		}
+		//WIND
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->atmosphere.windy += 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->atmosphere.windy -= 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->atmosphere.windx += 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+				/// PRINT ///
 				App->physics->atmosphere.windx -= 0.5f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
@@ -90,9 +99,64 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 			{
+				/// PRINT ///
 				vientesito = !vientesito;
 			}
 
+		}
+		//WATER
+		if (App->input->GetKey(SDL_SCANCODE_B) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->vy += 0.5f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->vy -= 0.5f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->vx += 0.5f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->vx -= 0.5f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+				faxcopy = App->physics->vx;
+				faycopy = App->physics->vy;
+				App->physics->vx = 0;
+				App->physics->vy = 0;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+				if (App->physics->vy == 0) {
+					App->physics->vy = faycopy;
+				}
+				if (App->physics->vx == 0) {
+					App->physics->vx = faxcopy;
+				}
+			}
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+			{
+				/// PRINT ///
+				debugWater = !debugWater;
+			}
+			if (debugWater)
+			{
+				App->physics->debug_water.clear();
+
+				App->physics->water.x = 0; // Start where ground ends [m]
+				App->physics->water.y = 0; // [m]
+				App->physics->water.w = PIXEL_TO_METERS(SCREEN_WIDTH); // [m]
+				App->physics->water.h = PIXEL_TO_METERS(SCREEN_HEIGHT/2); // [m]
+
+				App->physics->debug_water.emplace_back(App->physics->water);
+			}
+			if (!App->physics->debug_water.empty() && !debugWater)
+			{
+				App->physics->debug_water.clear();
+			}
 		}
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		{
@@ -157,7 +221,6 @@ update_status ModuleSceneIntro::Update()
 			{
 				App->physics->player_1.x += 0.05f;
 			}
-
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);
@@ -249,6 +312,10 @@ update_status ModuleSceneIntro::Update()
 	return UPDATE_CONTINUE;
 }
 
+void ModuleSceneIntro::delay(int secs) {
+	for (int i = (time(NULL) + secs); time(NULL) != i; time(NULL));
+}
+
 void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientation)
 {
 	// Create a ball
@@ -299,16 +366,12 @@ void ModuleSceneIntro::AddGround(float x, float y)
 }
 void ModuleSceneIntro::AddWater(float x, float y)
 {
-	Water water = Water();
-	water.x = x; // Start where ground ends [m]
-	water.y = y; // [m]
-	water.w = 2.0f; // [m]
-	water.h = 2.0f; // [m]
-	water.density = 50.0f; // [kg/m^3]
-	water.vx = 0.0f; // [m/s]
-	water.vy = -1.0f; // [m/s]
+	App->physics->water.x = x; // Start where ground ends [m]
+	App->physics->water.y = y; // [m]
+	App->physics->water.w = 2.0f; // [m]
+	App->physics->water.h = 2.0f; // [m]
 
-	App->physics->waters.emplace_back(water);
+	App->physics->waters.emplace_back(App->physics->water);
 }
 
 void ModuleSceneIntro::AddAir(float x, float y)

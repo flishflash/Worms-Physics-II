@@ -18,6 +18,9 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 	
+	vida_1 = 5;
+	vida_2 = 5;
+
 	return true;
 }
 
@@ -32,9 +35,23 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	//Reset total acceleration and total accumulated force of the players
-	
+	int x = (App->physics->player_1.x*20);
+	int h = ((36-(App->physics->player_1.y + App->physics->player_1.h)) * 20);
+	int x_2 = (App->physics->player_2.x * 20);
+	int h_2 = ((36 - (App->physics->player_2.y + App->physics->player_2.h)) * 20);
+	//Print Vidas
+	for(int i=0; i<vida_1; i++)
+	{
+		App->renderer->DrawQuad({(x-2)+(5*i),(h-20), 5,5}, 255, 0, 0);
+	}
+	for (int i = 0; i < vida_2; i++)
+	{
+		App->renderer->DrawQuad({ (x_2 - 2) + (5 * i),(h_2 - 20), 5,5}, 255, 0, 0);
+	}
 
+
+
+	//Reset total acceleration and total accumulated force of the players
 	App->physics->player_1.fx = App->physics->player_1.fy = 0.0f;
 	App->physics->player_1.ax = App->physics->player_1.ay = 0.0f;
 	App->physics->player_2.fx = App->physics->player_2.fy = 0.0f;

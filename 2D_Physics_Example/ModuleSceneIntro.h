@@ -80,17 +80,21 @@ public:
 	void ModuleSceneIntro::AddGround(float x, float y);
 	void ModuleSceneIntro::AddWater(float x, float y);
 	void ModuleSceneIntro::AddAir(float x, float y);
+	void ModuleSceneIntro::delay(int secs);
 
 	bool turns;
 	bool vientesito;
+	bool choose_material;
 	bool coef;
 
 private:
 	bool jump;
 	int material;
-	bool choose_material;
 	bool debug = false;
 	float fgcopy;
 	float fwxcopy;
 	float fwycopy;
+	float faxcopy;
+	float faycopy;
+	bool debugWater;
 };

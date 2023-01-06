@@ -125,10 +125,12 @@ public:
 	// Physics objects
 	std::vector<PhysBall> balls{};
 	Atmosphere atmosphere{};
+	Water water{};
 	Pplayer player_1{};
 	Pplayer player_2{};
 	std::vector<Ground> grounds{};
 	std::vector<Water> waters{};
+	std::vector<Water> debug_water{};
 	std::vector<Air> airs{};
 
 	//Gravity
@@ -137,6 +139,9 @@ public:
 
 	// Misc
 	float dt = 1.0 / 60.0;
+
+	//Water
+	float vy, vx;
 
 	//Animations
 	SDL_Texture* texture;

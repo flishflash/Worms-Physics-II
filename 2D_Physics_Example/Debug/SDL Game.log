@@ -1,4 +1,56 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (Worms.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  Application.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  Main.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  ModuleAudio.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  ModuleFonts.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  ModuleInput.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  ModulePhysics.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(396,13): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(397,13): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(398,13): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(399,13): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(532,13): warning C4305: '*=': truncamiento de 'double' a 'float'
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(537,7): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(559,13): warning C4305: '*=': truncamiento de 'double' a 'float'
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(564,7): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(788,1): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(747): message : Vea la referencia a la creación de una instancia de la función plantilla "Ground *std::vector<Ground,std::allocator<Ground>>::_Emplace_reallocate<Ground&>(Ground *const ,Ground &)" que se está compilando
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(747): message : Vea la referencia a la creación de una instancia de la función plantilla "Ground *std::vector<Ground,std::allocator<Ground>>::_Emplace_reallocate<Ground&>(Ground *const ,Ground &)" que se está compilando
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.cpp(38): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<Ground,std::allocator<Ground>>::emplace_back<Ground&>(Ground &)" que se está compilando
+  ModulePlayer.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(38,10): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(39,10): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(40,10): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(41,10): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(54,9): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(55,9): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(60,9): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePlayer.cpp(61,9): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ModuleRender.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
   ModuleSceneIntro.cpp
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
@@ -13,9 +65,9 @@ C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Mo
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(321,23): warning C4477: 'sprintf_s' : la cadena de formato '%7d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(323,27): warning C4477: 'sprintf_s' : la cadena de formato '%7d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(324,27): warning C4477: 'sprintf_s' : la cadena de formato '%7d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(330,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(329,21): warning C4477: 'sprintf_s' : la cadena de formato '%7d' requiere un argumento de tipo 'int', pero el argumento variádico 1 tiene el tipo 'double'
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(331,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(332,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(332,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(333,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(334,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(335,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
@@ -23,20 +75,32 @@ C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Mo
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(337,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(338,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(339,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(342,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(343,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(344,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(345,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(340,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(341,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(344,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(345,31): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(346,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(347,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(348,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(349,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(348,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(349,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(350,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(351,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(357,13): warning C4244: 'inicializando': conversión de 'time_t' a 'int'; posible pérdida de datos
-C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(375,21): warning C4805: '==': combinación no segura del tipo 'int' y el tipo 'bool' en la operación
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(352,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(353,33): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(354,32): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(360,13): warning C4244: 'inicializando': conversión de 'time_t' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(378,21): warning C4805: '==': combinación no segura del tipo 'int' y el tipo 'bool' en la operación
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(788,1): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(747): message : Vea la referencia a la creación de una instancia de la función plantilla "Water *std::vector<Water,std::allocator<Water>>::_Emplace_reallocate<Water&>(Water *const ,Water &)" que se está compilando
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(747): message : Vea la referencia a la creación de una instancia de la función plantilla "Water *std::vector<Water,std::allocator<Water>>::_Emplace_reallocate<Water&>(Water *const ,Water &)" que se está compilando
 C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(159): message : Vea la referencia a la creación de una instancia de la función plantilla "void std::vector<Water,std::allocator<Water>>::emplace_back<Water&>(Water &)" que se está compilando
+  ModuleTextures.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  ModuleWindow.cpp
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(151,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+  Generando código...
   SDL Game.vcxproj -> C:\Users\greem\OneDrive\Documentos\GitHub\Worms-Physics-II\2D_Physics_Example\Debug\PhysEngine.exe

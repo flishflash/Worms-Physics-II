@@ -104,6 +104,7 @@ public:
 	char vby[10] = { "\0" };
 	char fbx[10] = { "\0" };
 	char fby[10] = { "\0" };
+	char fps[10] = { "\0" };
 
 private:
 	bool jump;

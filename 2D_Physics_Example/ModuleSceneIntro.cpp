@@ -326,6 +326,7 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(vby, 10, "%7d", App->physics->bvy);
 	sprintf_s(fbx, 10, "%7d", App->physics->bfx);
 	sprintf_s(fby, 10, "%7d", App->physics->bfy);
+	sprintf_s(fps, 10, "%7d", App->physics->dt);
 
 	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
 	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");
@@ -337,6 +338,7 @@ update_status ModuleSceneIntro::Update()
 	App->fonts->BlitText(40, 280, scoreFont, "VELOCITY BALL Y:");
 	App->fonts->BlitText(40, 315, scoreFont, "TOTAL FX BALL:");
 	App->fonts->BlitText(40, 350, scoreFont, "TOTAL FY BALL:");
+	App->fonts->BlitText(40, 385, scoreFont, "FPS:");
 
 	//highscore
 	App->fonts->BlitText(90, 35, scoreFont, GravityT);
@@ -349,6 +351,7 @@ update_status ModuleSceneIntro::Update()
 	App->fonts->BlitText(120, 280, scoreFont, vby);
 	App->fonts->BlitText(120, 315, scoreFont, fbx);
 	App->fonts->BlitText(120, 350, scoreFont, fby);
+	App->fonts->BlitText(90, 385, scoreFont, fps);
 	
 	return UPDATE_CONTINUE;
 }

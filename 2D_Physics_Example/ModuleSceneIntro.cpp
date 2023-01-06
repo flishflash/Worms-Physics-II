@@ -316,17 +316,24 @@ update_status ModuleSceneIntro::Update()
 			jump = false; choose_material = false;
 		}
 
-	sprintf_s(GravityT, 10, "%7d", App->physics->gry);
-	sprintf_s(WindX, 10, "%7d", App->physics->atmosphere.windx);
-	sprintf_s(WindY, 10, "%7d", App->physics->atmosphere.windy);
+	int gry = App->physics->gry;
+	int windx = App->physics->atmosphere.windx;
+	int windy = App->physics->atmosphere.windy;
+	int vx = App->physics->vx;
+	int vy = App->physics->vy;
+	int dt = App->physics->dt;
+
+	sprintf_s(GravityT, 10, "%7d", gry);
+	sprintf_s(WindX, 10, "%7d", windx);
+	sprintf_s(WindY, 10, "%7d", windy);
 	sprintf_s(Friction, 10, "%7d", coef);
-	sprintf_s(BouyancyX, 10, "%7d", App->physics->vx);
-	sprintf_s(BouyancyY, 10, "%7d", App->physics->vy);
+	sprintf_s(BouyancyX, 10, "%7d", vx);
+	sprintf_s(BouyancyY, 10, "%7d", vy);
 	sprintf_s(vbx, 10, "%7d", App->physics->bvx);
 	sprintf_s(vby, 10, "%7d", App->physics->bvy);
 	sprintf_s(fbx, 10, "%7d", App->physics->bfx);
 	sprintf_s(fby, 10, "%7d", App->physics->bfy);
-	sprintf_s(fps, 10, "%7d", App->physics->dt);
+	sprintf_s(fps, 10, "%7d", dt);
 
 	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
 	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");

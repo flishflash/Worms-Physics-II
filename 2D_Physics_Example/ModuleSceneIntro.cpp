@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleFonts.h"
+#include "ModulePhysics.h"
 #include<ctime>
 
 
@@ -26,6 +28,9 @@ bool ModuleSceneIntro::Start()
 	vientesito = false;
 	coef = true;
 	debugWater = false;
+
+	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
+	scoreFont = App->fonts->Load("Assets/ABC.png", lookupTable, 1);
 
 	return ret;
 }
@@ -310,6 +315,28 @@ update_status ModuleSceneIntro::Update()
 			turns = false;
 			jump = false; choose_material = false;
 		}
+
+	sprintf_s(GravityT, 10.0f, "%7d", App->physics->gry);
+	sprintf_s(WindX, 10, "%7d", App->physics->atmosphere.windx);
+	sprintf_s(WindY, 10, "%7d", App->physics->atmosphere.windy);
+	sprintf_s(Friction, 10, "%7d", coef);
+	sprintf_s(BouyancyX, 10, "%7d", App->physics->vx);
+	sprintf_s(BouyancyY, 10, "%7d", App->physics->vy);
+
+	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
+	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");
+	App->fonts->BlitText(40, 105, scoreFont, "WIND Y:");
+	App->fonts->BlitText(40, 140, scoreFont, "FRICTION:");
+	App->fonts->BlitText(40, 175, scoreFont, "BOUYANCY X:");
+	App->fonts->BlitText(40, 210, scoreFont, "BOUYANCY Y:");
+
+	//highscore
+	App->fonts->BlitText(90, 35, scoreFont, GravityT);
+	App->fonts->BlitText(90, 70, scoreFont, WindX);
+	App->fonts->BlitText(90, 105, scoreFont, WindY);
+	App->fonts->BlitText(90, 140, scoreFont, Friction);
+	App->fonts->BlitText(90, 175, scoreFont, BouyancyX);
+	App->fonts->BlitText(90, 210, scoreFont, BouyancyY);
 	
 	return UPDATE_CONTINUE;
 }

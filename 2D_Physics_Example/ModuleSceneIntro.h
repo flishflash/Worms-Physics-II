@@ -87,6 +87,19 @@ public:
 	bool choose_material;
 	bool coef;
 
+	// Font score index
+	uint score = 000;
+	int scoreFont = -1;
+	char scoreText[10] = { "\0" };
+
+	uint highscore = 000;
+	char GravityT[10] = { "\0" };
+	char WindX[10] = { "\0" };
+	char WindY[10] = { "\0" };
+	char Friction[10] = { "\0" };
+	char BouyancyX[10] = { "\0" };
+	char BouyancyY[10] = { "\0" };
+
 private:
 	bool jump;
 	int material;

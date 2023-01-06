@@ -427,6 +427,33 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, c
 	fy = fbuoyancy_modulus; // Buoyancy is parallel to pressure gradient
 }
 
+// Compute Hydrodynamic Drag force
+void compute_hydrodynamic_drag_player(float& fx, float& fy, const Pplayer& player, const Water& water)
+{
+	float rel_vel[2] = { 0, player.vy - water.vy }; // Relative velocity
+	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
+	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
+	float fdrag_modulus = 50.0f * speed; // Drag force (modulus)
+	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
+	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
+}
+
+// Compute Hydrodynamic Buoyancy force
+void compute_hydrodynamic_buoyancy_player(float& fx, float& fy, const Pplayer& player, const Water& water)
+{
+	// Compute submerged area (assume ball is a rectangle, for simplicity)
+	float water_top_level = water.y + water.h; // Water top level y
+	float h = player.h; // Ball "hitbox" height
+	float surf = h * (water_top_level - player.y); // Submerged surface
+	if ((player.y + player.h) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
+	surf *= 0.4; // FUYM to adjust values (should compute the area of circle segment correctly instead; I'm too lazy for that)
+
+	// Compute Buoyancy force
+	double fbuoyancy_modulus = water.density * 10.0 * surf; // Buoyancy force (modulus)
+	fx = 0.0; // Buoyancy is parallel to pressure gradient
+	fy = fbuoyancy_modulus; // Buoyancy is parallel to pressure gradient
+}
+
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBall& ball, float dt)
 {
@@ -481,6 +508,11 @@ bool is_colliding_with_water(const PhysBall& ball, const Water& water)
 bool is_colliding_ground_with_player(const Pplayer& player, const Ground& ground)
 {
 	return check_collision_rectangle_rectangle(ground.x, ground.y, ground.w, ground.h, player.x, player.y, player.w, player.h);
+}
+// Detect collision with player
+bool is_colliding_water_with_player(const Pplayer& player, const Water& water)
+{
+	return check_collision_rectangle_rectangle(water.x, water.y, water.w, water.h, player.x, player.y, player.w, player.h);
 }
 
 // Detect collision between circle and rectange

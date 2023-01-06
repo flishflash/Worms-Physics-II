@@ -334,13 +334,13 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 	if (orientation == true)
 	{
 		ball.vx = PIXEL_TO_METERS(X)-(x);
-		ball.vy = y/(PIXEL_TO_METERS(Y)/10);
+		ball.vy = y/((36 - PIXEL_TO_METERS(Y))/10);
 		ball.id = 1;
 	}
 	else
 	{
 		ball.vx = PIXEL_TO_METERS(X)-x;
-		ball.vy = y/(PIXEL_TO_METERS(Y)/30);
+		ball.vy = y/((36 - PIXEL_TO_METERS(Y))/10);
 		ball.id = 0;
 	}
 

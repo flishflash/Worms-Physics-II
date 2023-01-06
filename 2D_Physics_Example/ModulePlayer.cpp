@@ -65,6 +65,76 @@ update_status ModulePlayer::Update()
 	float fgy_2 = App->physics->player_2.mass * -20.0f; // Let's assume gravity is constant and downwards
 	App->physics->player_2.fx += fgx_2; App->physics->player_2.fy += fgy_2; // Add this force to ball's total force
 
+	for (auto& water : App->physics->waters)
+	{
+
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_water_with_player(App->physics->player_1, water))
+		{
+
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_1, water);
+			App->physics->player_1.fx += fhdx; App->physics->player_1.fy += fhdy; // Add this force to ball's total force
+
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy_player(fhbx, fhby, App->physics->player_1, water);
+			App->physics->player_1.fx += fhbx; App->physics->player_1.fy += fhby; // Add this force to ball's total force
+		}
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_water_with_player(App->physics->player_2, water))
+		{
+
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_2, water);
+			App->physics->player_2.fx += fhdx; App->physics->player_2.fy += fhdy; // Add this force to ball's total force
+
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy_player(fhbx, fhby, App->physics->player_2, water);
+			App->physics->player_2.fx += fhbx; App->physics->player_2.fy += fhby; // Add this force to ball's total force
+		}
+
+	}
+
+	for (auto& water : App->physics->debug_water)
+	{
+
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_water_with_player(App->physics->player_1, water))
+		{
+
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_1, water);
+			App->physics->player_1.fx += fhdx; App->physics->player_1.fy += fhdy; // Add this force to ball's total force
+
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy_player(fhbx, fhby, App->physics->player_1, water);
+			App->physics->player_1.fx += fhbx; App->physics->player_1.fy += fhby; // Add this force to ball's total force
+		}
+
+		// Hydrodynamic forces (only when in water)
+		if (is_colliding_water_with_player(App->physics->player_2, water))
+		{
+
+			// Hydrodynamic Drag force
+			float fhdx = 0.0f; float fhdy = 0.0f;
+			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_2, water);
+			App->physics->player_2.fx += fhdx; App->physics->player_2.fy += fhdy; // Add this force to ball's total force
+
+			// Hydrodynamic Buoyancy force
+			float fhbx = 0.0f; float fhby = 0.0f;
+			compute_hydrodynamic_buoyancy_player(fhbx, fhby, App->physics->player_2, water);
+			App->physics->player_2.fx += fhbx; App->physics->player_2.fy += fhby; // Add this force to ball's total force
+		}
+	}
+
+
+
 	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
 	App->physics->player_1.ax = App->physics->player_1.fx / App->physics->player_1.mass;
 	App->physics->player_1.ay = App->physics->player_1.fy / App->physics->player_1.mass;
@@ -77,6 +147,8 @@ update_status ModulePlayer::Update()
 	integrator_velocity_verlet_player(App->physics->player_1, App->physics->dt);
 	integrator_velocity_verlet_player(App->physics->player_2, App->physics->dt);
 
+
+	
 	for (auto& ground : App->physics->grounds)
 	{
 		if (is_colliding_ground_with_player(App->physics->player_1, ground))

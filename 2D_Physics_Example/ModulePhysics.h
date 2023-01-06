@@ -166,6 +166,12 @@ void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBall& ball, const
 // Compute Hydrodynamic Buoyancy force
 void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, const Water& water);
 
+// Compute Hydrodynamic Drag force
+void compute_hydrodynamic_drag_player(float& fx, float& fy, const Pplayer& player, const Water& water);
+
+// Compute Hydrodynamic Buoyancy force
+void compute_hydrodynamic_buoyancy_player(float& fx, float& fy, const Pplayer& player, const Water& water);
+
 // Integration scheme: Velocity Verlet
 void integrator_velocity_verlet(PhysBall& ball, float dt);
 
@@ -181,6 +187,8 @@ bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player);
 
 // Detect collision with player
 bool is_colliding_ground_with_player(const Pplayer& player, const Ground& ground);
+
+bool is_colliding_water_with_player(const Pplayer& player, const Water& water);
 
 // Detect collision with water
 bool is_colliding_with_water(const PhysBall& ball, const Water& water);

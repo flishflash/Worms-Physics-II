@@ -2,13 +2,13 @@
   ModuleSceneIntro.cpp
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\Animation.h(55,19): warning C4244: 'inicializando': conversión de 'const float' a 'int'; posible pérdida de datos
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\Animation.h(57,30): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(141,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
+C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModulePhysics.h(143,11): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(226,167): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(226,142): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(289,167): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(289,142): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(316,13): warning C4244: 'inicializando': conversión de 'time_t' a 'int'; posible pérdida de datos
-C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(334,21): warning C4805: '==': combinación no segura del tipo 'int' y el tipo 'bool' en la operación
+C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(318,13): warning C4244: 'inicializando': conversión de 'time_t' a 'int'; posible pérdida de datos
+C:\Users\lapiz\OneDrive\Documentos\GitHub\Worms\Worms-Physics-II\2D_Physics_Example\ModuleSceneIntro.cpp(336,21): warning C4805: '==': combinación no segura del tipo 'int' y el tipo 'bool' en la operación
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(775,1): warning C4530: Se ha utilizado el controlador de excepciones de C++, pero la semántica de desenredo no está habilitada. Especifique /EHsc
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "Water *std::vector<Water,std::allocator<Water>>::_Emplace_reallocate<Water&>(Water *const ,Water &)" que se está compilando
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(734): message : Vea la referencia a la creación de una instancia de la función plantilla "Water *std::vector<Water,std::allocator<Water>>::_Emplace_reallocate<Water&>(Water *const ,Water &)" que se está compilando

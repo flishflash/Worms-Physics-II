@@ -297,6 +297,8 @@ update_status ModuleSceneIntro::Update()
 		{
 			App->physics->balls.clear();
 			App->physics->airs.clear();
+			App->physics->scene_grounds.clear();
+			App->physics->scene_waters.clear();
 		}
 		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_UP)
 		{
@@ -334,13 +336,13 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 	if (orientation == true)
 	{
 		ball.vx = PIXEL_TO_METERS(X)-(x);
-		ball.vy = y/((36 - PIXEL_TO_METERS(Y))/10);
+		ball.vy = ((36 - PIXEL_TO_METERS(Y)) - (y));
 		ball.id = 1;
 	}
 	else
 	{
-		ball.vx = PIXEL_TO_METERS(X)-x;
-		ball.vy = y/((36 - PIXEL_TO_METERS(Y))/10);
+		ball.vx = PIXEL_TO_METERS(X)-(x);
+		ball.vy = (36 - PIXEL_TO_METERS(Y)) - (y);
 		ball.id = 0;
 	}
 
@@ -362,7 +364,7 @@ void ModuleSceneIntro::AddGround(float x, float y)
 	ground.w = 1.0f; // [m]
 	ground.h = 1.0f; // [m]
 
-	App->physics->grounds.emplace_back(ground);
+	App->physics->scene_grounds.emplace_back(ground);
 }
 void ModuleSceneIntro::AddWater(float x, float y)
 {
@@ -371,7 +373,7 @@ void ModuleSceneIntro::AddWater(float x, float y)
 	App->physics->water.w = 2.0f; // [m]
 	App->physics->water.h = 2.0f; // [m]
 
-	App->physics->waters.emplace_back(App->physics->water);
+	App->physics->scene_waters.emplace_back(App->physics->water);
 }
 
 void ModuleSceneIntro::AddAir(float x, float y)

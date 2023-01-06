@@ -129,7 +129,9 @@ public:
 	Pplayer player_1{};
 	Pplayer player_2{};
 	std::vector<Ground> grounds{};
+	std::vector<Ground> scene_grounds{};
 	std::vector<Water> waters{};
+	std::vector<Water> scene_waters{};
 	std::vector<Water> debug_water{};
 	std::vector<Air> airs{};
 

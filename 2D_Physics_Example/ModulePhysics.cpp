@@ -189,6 +189,27 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
+		for (auto& water : scene_waters)
+		{
+
+			// Hydrodynamic forces (only when in water)
+			if (is_colliding_with_water(ball, water))
+			{
+				App->scene_intro->vientesito = false;
+
+				// Hydrodynamic Drag force
+				float fhdx = 0.0f; float fhdy = 0.0f;
+				compute_hydrodynamic_drag(fhdx, fhdy, ball, water);
+				ball.fx += fhdx; ball.fy += fhdy; // Add this force to ball's total force
+
+				// Hydrodynamic Buoyancy force
+				float fhbx = 0.0f; float fhby = 0.0f;
+				compute_hydrodynamic_buoyancy(fhbx, fhby, ball, water);
+				ball.fx += fhbx; ball.fy += fhby; // Add this force to ball's total force
+			}
+		}
+
+
 		for (auto& air : airs)
 		{
 			if (is_colliding_with_air(ball, air))
@@ -226,10 +247,22 @@ update_status ModulePhysics::PreUpdate()
 			if (ball.id == 1)
 			{
 				App->player->vida_1--;
+				if (App->player->vida_1 <= 0)
+				{
+					App->physics->airs.clear();
+					App->physics->scene_grounds.clear();
+					App->physics->scene_waters.clear();
+				}
 			}
 			else
 			{
 				App->player->vida_2--;
+				if (App->player->vida_2 <= 0)
+				{
+					App->physics->airs.clear();
+					App->physics->scene_grounds.clear();
+					App->physics->scene_waters.clear();
+				}
 			}
 		}
 
@@ -298,6 +331,70 @@ update_status ModulePhysics::PreUpdate()
 			
 		}
 
+		for (auto& ground : scene_grounds)
+		{
+
+			if (is_colliding_with_ground(ball, ground))
+			{
+
+				if (ball.y > ground.y + ground.h)
+				{
+					// TP ball to ground surface
+					ball.y = ground.y + ground.h + ball.radius;
+
+					// Elastic bounce with ground
+					ball.vy = -ball.vy;
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
+				}
+				else if (ball.y < ground.y)
+				{
+					// TP ball to ground surface
+					ball.y = ground.y - ball.radius;
+
+					// Elastic bounce with ground
+					ball.vy = -ball.vy;
+
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
+
+				}
+				else
+				{
+					if (ball.x > ground.x)
+					{
+						// TP ball to ground right
+						ball.x = ground.x + ground.w + ball.radius;
+					}
+					else
+					{
+						// TP ball to ground left
+						ball.x = ground.x - ball.radius;
+					}
+
+					// Elastic bounce with ground
+					ball.vx = -ball.vx;
+
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						ball.vx *= ball.coef_friction;
+						ball.vy *= ball.coef_restitution;
+					}
+				}
+			}
+
+
+		}
+
 	}
 		
 	// Continue game
@@ -314,7 +411,13 @@ update_status ModulePhysics::PostUpdate()
 		color_r = 0; color_g = 255; color_b = 0;
 		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
 	}
-	
+	for (auto& ground : scene_grounds)
+	{
+		// Draw scene_ground
+		color_r = 0; color_g = 255; color_b = 0;
+		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+	}
+
 	// Draw player_1
 	color_r = 255; color_g = 0; color_b = 0;
 	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
@@ -327,6 +430,12 @@ update_status ModulePhysics::PostUpdate()
 	for (auto& water : waters)
 	{
 		// Draw water
+		color_r = 0; color_g = 0; color_b = 255;
+		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+	}
+	for (auto& water : scene_waters)
+	{
+		// Draw scene_water
 		color_r = 0; color_g = 0; color_b = 255;
 		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
 	}

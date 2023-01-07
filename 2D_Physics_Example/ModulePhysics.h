@@ -148,7 +148,8 @@ public:
 	int bfy;
 
 	// Misc
-	float dt = 1.0 / 60.0;
+	float FPS = 60.0f;
+	float dt = 1.0 / FPS;
 
 	//Water
 	float vy, vx;

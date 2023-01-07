@@ -106,6 +106,9 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate()
 {
+	//Delta Time
+	dt = 1.0 / FPS;
+
 	// Create water
 	water = Water();
 	water.density = 50.0f; // [kg/m^3]

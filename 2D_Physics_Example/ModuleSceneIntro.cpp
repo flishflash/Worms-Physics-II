@@ -104,7 +104,6 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 			{
-				/// PRINT ///
 				vientesito = !vientesito;
 			}
 
@@ -144,7 +143,6 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
 			{
-				/// PRINT ///
 				debugWater = !debugWater;
 			}
 			if (debugWater)
@@ -166,6 +164,16 @@ update_status ModuleSceneIntro::Update()
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		{
 			coef = !coef;
+		}if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->FPS += 1.0f;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+				/// PRINT ///
+				App->physics->FPS -= 1.0f;
+			}
 		}
 	}
 
@@ -321,7 +329,7 @@ update_status ModuleSceneIntro::Update()
 	int windy = App->physics->atmosphere.windy;
 	int vx = App->physics->vx;
 	int vy = App->physics->vy;
-	int dt = App->physics->dt;
+	int FPS = App->physics->FPS;
 
 	sprintf_s(GravityT, 10, "%7d", gry);
 	sprintf_s(WindX, 10, "%7d", windx);
@@ -333,7 +341,7 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(vby, 10, "%7d", App->physics->bvy);
 	sprintf_s(fbx, 10, "%7d", App->physics->bfx);
 	sprintf_s(fby, 10, "%7d", App->physics->bfy);
-	sprintf_s(fps, 10, "%7d", dt);
+	sprintf_s(fps, 10, "%7d", FPS);
 
 	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
 	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");

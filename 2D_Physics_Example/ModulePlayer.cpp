@@ -79,7 +79,6 @@ update_status ModulePlayer::Update()
 
 	for (auto& water : App->physics->waters)
 	{
-
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_water_with_player(App->physics->player_1, water))
 		{

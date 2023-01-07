@@ -62,6 +62,7 @@ class Ground : public SDL_Rect
 public:
 	float x,y,w,h; // Geometry (x,y,w,h)
 	SDL_Rect pixels(); // Convert geometry to pixels to draw w/ SDL
+	int ID=0;
 };
 
 
@@ -208,6 +209,9 @@ bool is_colliding_with_ball(const PhysBall& ball, const PhysBall& ball_);
 
 // Detect collision between circle and rectange
 bool check_collision_circle_rectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh);
+
+// Detect collision between circle and rectange
+bool check_collision_circle_circle(float cx, float cy, float cr, float cx_, float cy_, float cr_);
 
 // Detect collision between circle and circle
 bool check_collision_rectangle_rectangle(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h);

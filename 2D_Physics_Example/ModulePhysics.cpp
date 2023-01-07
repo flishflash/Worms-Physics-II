@@ -269,9 +269,15 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
+		//for (auto& ball : balls)
+		//{
+		//	if (is_colliding_with_ball(ball, ball))
+		//	{
+		//		
+		//	}
+		//}
 		for (auto& ground : grounds)
 		{
-
 			if (is_colliding_with_ground(ball, ground))
 			{
 
@@ -412,8 +418,17 @@ update_status ModulePhysics::PostUpdate()
 	for (auto& ground : grounds)
 	{
 		// Draw ground
-		color_r = 0; color_g = 255; color_b = 0;
-		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+		if (ground.ID==1)
+		{
+			color_r = 115; color_g = 61; color_b = 86;
+			App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+		}
+		else
+		{
+			color_r = 0; color_g = 255; color_b = 0;
+			App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+		}
+
 	}
 	for (auto& ground : scene_grounds)
 	{

@@ -112,6 +112,7 @@ private:
 
 	SDL_Texture* texture;
 
+	int fPs;
 	bool jump;
 	int material;
 	float fgcopy;

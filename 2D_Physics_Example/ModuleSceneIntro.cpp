@@ -29,7 +29,6 @@ bool ModuleSceneIntro::Start()
 	coef = true;
 	debugWater = false;
 
-
 	texture = App->textures->Load("Assets/Worms_Map.png");
 
 	//Ball Map
@@ -56,6 +55,7 @@ bool ModuleSceneIntro::Start()
 	// Add ball to the collection
 	App->physics->bally.emplace_back(ball_);
 
+	fPs = App->physics->FPS;
 
 	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
 	scoreFont = App->fonts->Load("Assets/ABC_.png", lookupTable, 1);
@@ -198,11 +198,13 @@ update_status ModuleSceneIntro::Update()
 		{
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 				/// PRINT ///
-				App->physics->FPS += 1.0f;
+				App->physics->FPS -= 10.0f;
+				fPs += 10.0f;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 				/// PRINT ///
-				App->physics->FPS -= 1.0f;
+				App->physics->FPS += 10.0f;
+				fPs -= 10.0f;
 			}
 		}
 	}
@@ -359,7 +361,6 @@ update_status ModuleSceneIntro::Update()
 	int windy = App->physics->atmosphere.windy;
 	int vx = App->physics->vx;
 	int vy = App->physics->vy;
-	int FPS = App->physics->FPS;
 
 	sprintf_s(GravityT, 10, "%7d", gry);
 	sprintf_s(WindX, 10, "%7d", windx);
@@ -371,7 +372,7 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(vby, 10, "%7d", App->physics->bvy);
 	sprintf_s(fbx, 10, "%7d", App->physics->bfx);
 	sprintf_s(fby, 10, "%7d", App->physics->bfy);
-	sprintf_s(fps, 10, "%7d", FPS);
+	sprintf_s(fps, 10, "%7d", fPs);
 
 	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
 	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");

@@ -583,6 +583,23 @@ update_status ModulePhysics::PreUpdate()
 				}
 			}
 		}
+		if (ball.vx >= 15)
+		{
+			ball.vx = 15;
+		}
+		if (ball.vy >= 15)
+		{
+			ball.vy = 15;
+		}
+		if (ball.vx <= -15)
+		{
+			ball.vx = -15;
+		}
+		if (ball.vy <= -15)
+		{
+			ball.vy = -15;
+		}
+
 		bvx = ball.vx;
 		bvy = ball.vy;
 		bfx = ball.fx;

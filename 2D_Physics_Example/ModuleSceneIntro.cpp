@@ -57,8 +57,8 @@ bool ModuleSceneIntro::Start()
 
 	fPs = App->physics->FPS;
 
-	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
-	scoreFont = App->fonts->Load("Assets/ABC_.png", lookupTable, 1);
+	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789:- " };
+	scoreFont = App->fonts->Load("Assets/ABC.png", lookupTable, 1);
 
 	return ret;
 }

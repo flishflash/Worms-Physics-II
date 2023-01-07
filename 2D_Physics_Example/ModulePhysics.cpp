@@ -778,6 +778,17 @@ void compute_aerodynamic_drag(float &fx, float& fy, const PhysBall &ball, const 
 	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
 }
 
+// Compute Aerodynamic Lift force
+void compute_aerodynamic_lift(float& fx, float& fy, const PhysBall& ball, const Atmosphere& atmosphere)
+{
+	float rel_vel[2] = { ball.vx - atmosphere.windx, ball.vy - atmosphere.windy }; // Relative velocity
+	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
+	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
+	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * ball.surface * ball.cl; // Drag force (modulus)
+	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
+	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
+}
+
 // Compute Hydrodynamic Drag force
 void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBall& ball, const Water& water)
 {

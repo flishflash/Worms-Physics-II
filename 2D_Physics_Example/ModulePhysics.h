@@ -184,6 +184,9 @@ float modulus(float vx, float vy);
 // Compute Aerodynamic Drag force
 void compute_aerodynamic_drag(float& fx, float& fy, const PhysBall& ball, const Atmosphere& atmosphere);
 
+// Compute Aerodynamic Lift force
+void compute_aerodynamic_lift(float& fx, float& fy, const PhysBall& ball, const Atmosphere& atmosphere);
+
 // Compute Hydrodynamic Drag force
 void compute_hydrodynamic_drag(float& fx, float& fy, const PhysBall& ball, const Water& water);
 

@@ -160,8 +160,6 @@ public:
 	SDL_Texture* texture;
 	Animation* currentAnimation = nullptr;
 	Animation P1_idle;
-	const char* path_p1 = "Assets/player1.png";
-	const char* path_p2 = NULL;
 
 	//Change integrator method
 	int integrator=1;

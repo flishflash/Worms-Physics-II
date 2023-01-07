@@ -87,6 +87,9 @@ public:
 	bool choose_material;
 	bool coef;
 
+	SDL_RendererFlip flip_1;
+	SDL_RendererFlip flip_2;
+
 	// Font score index
 	uint score = 000;
 	float scoreFont = -1.0f;

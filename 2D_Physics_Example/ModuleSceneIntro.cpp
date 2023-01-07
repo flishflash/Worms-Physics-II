@@ -200,22 +200,30 @@ update_status ModuleSceneIntro::Update()
 				App->physics->debug_water.clear();
 			}
 		}
+		//COEF
 		if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
 		{
 			coef = !coef;
-		}if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+		}
+		//FPS
+		if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
 				/// PRINT ///
-				App->physics->FPS -= 10.0f;
-				fPs += 10.0f;
+				if (fPs < 110)
+				{
+					App->physics->FPS -= 10.0f;
+					fPs += 10.0f;
+				}
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 				/// PRINT ///
 				App->physics->FPS += 10.0f;
 				fPs -= 10.0f;
 			}
-		}if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+		}
+		//Integrator
+		if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 				
@@ -277,6 +285,7 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
 				App->physics->player_1.x -= 0.05f;
+				flip_1 = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == true)
 			{
@@ -287,11 +296,12 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
 				App->physics->player_1.x += 0.05f;
+				flip_1 = SDL_RendererFlip::SDL_FLIP_NONE;
 			}
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);
-				turns = !turns; choose_material = false;
+				turns = !turns; choose_material = false; jump = false;
 			}
 		}
 		break;
@@ -339,6 +349,7 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
 				App->physics->player_2.x -= 0.05f;
+				flip_2 = SDL_RendererFlip::SDL_FLIP_NONE;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 			{
@@ -349,13 +360,13 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
 				App->physics->player_2.x += 0.05f;
+				flip_2 = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			}
 
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
-				turns = !turns;
-				choose_material = false;
+				turns = !turns; choose_material = false; jump = true;
 			}
 			break;
 		}

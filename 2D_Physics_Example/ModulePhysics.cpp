@@ -745,12 +745,12 @@ update_status ModulePhysics::PostUpdate()
 		//Draw Player_1
 		int pos_x_1 = METERS_TO_PIXELS(player_1.x);
 		int pos_y_1 = SCREEN_HEIGHT - METERS_TO_PIXELS((player_1.y + player_1.h));
-		App->renderer->Blit(green, pos_x_1, pos_y_1);
+		App->renderer->Blit(green, pos_x_1, pos_y_1, NULL, 1.0f, NULL, NULL, NULL, App->scene_intro->flip_1);
 
 		//Draw Player_2
 		int pos_x_2 = METERS_TO_PIXELS(player_2.x);
 		int pos_y_2 = SCREEN_HEIGHT - METERS_TO_PIXELS((player_2.y + player_2.h));
-		App->renderer->Blit(red, pos_x_2, pos_y_2);
+		App->renderer->Blit(red, pos_x_2, pos_y_2, NULL, 1.0f, NULL, NULL, NULL, App->scene_intro->flip_2);
 
 	return UPDATE_CONTINUE;
 }

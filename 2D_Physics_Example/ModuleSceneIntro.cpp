@@ -413,7 +413,7 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 	// Set static properties of the ball
 	ball.mass = 10.0f; // [kg]
 	ball.surface = 1.0f; // [m^2]
-	ball.radius = 0.5f; // [m]
+	ball.radius = 0.25f; // [m]
 	ball.cd = 0.4f; // [-]
 	ball.cl = 1.2f; // [-]
 	ball.b = 10.0f; // [...]

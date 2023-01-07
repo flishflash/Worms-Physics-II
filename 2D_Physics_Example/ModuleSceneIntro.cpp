@@ -30,6 +30,8 @@ bool ModuleSceneIntro::Start()
 	debugWater = false;
 
 
+	texture = App->textures->Load("Assets/Worms_Map.png");
+
 	//Ball Map
 	 
 	// Create a ball
@@ -72,8 +74,10 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+	App->renderer->Blit(texture, 0, 0);
+
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		debug = true;
+		debug = !debug;
 		LOG("Debug");
 	}
 	if (debug == true) {

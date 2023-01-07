@@ -106,10 +106,14 @@ public:
 	char fby[10] = { "\0" };
 	char fps[10] = { "\0" };
 
+	bool debug = false;
+
 private:
+
+	SDL_Texture* texture;
+
 	bool jump;
 	int material;
-	bool debug = false;
 	float fgcopy;
 	float fwxcopy;
 	float fwycopy;

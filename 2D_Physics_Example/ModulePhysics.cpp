@@ -424,104 +424,107 @@ update_status ModulePhysics::PreUpdate()
 
 update_status ModulePhysics::PostUpdate()
 {
-	// Colors
-	int color_r, color_g, color_b;
-	for (auto& ground : grounds)
+	if (App->scene_intro->debug)
 	{
-		// Draw ground
-		if (ground.ID==1)
+		// Colors
+		int color_r, color_g, color_b;
+		for (auto& ground : grounds)
 		{
-			color_r = 115; color_g = 61; color_b = 86;
-			App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+			// Draw ground
+			if (ground.ID == 1)
+			{
+				color_r = 115; color_g = 61; color_b = 86;
+				App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+			}
+			else
+			{
+				color_r = 0; color_g = 255; color_b = 0;
+				App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+			}
+
 		}
-		else
+		for (auto& ground : scene_grounds)
 		{
+			// Draw scene_ground
 			color_r = 0; color_g = 255; color_b = 0;
 			App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
 		}
-
-	}
-	for (auto& ground : scene_grounds)
-	{
-		// Draw scene_ground
-		color_r = 0; color_g = 255; color_b = 0;
-		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
-	}
-	for (auto& ball : bally)
-	{
-		// Draw scene_ground
-		color_r = 0; color_g = 255; color_b = 0;
-		// Convert from physical magnitudes to geometrical pixels
-		int pos_x = METERS_TO_PIXELS(ball.x);
-		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
-		int size_r = METERS_TO_PIXELS(ball.radius);
-		// Draw ball
-		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
-	}
-
-	// Draw player_1
-	color_r = 255; color_g = 0; color_b = 0;
-	App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
-	currentAnimation = &P1_idle;
-
-	// Draw player_2
-	color_r = 200; color_g = 70; color_b = 150;
-	App->renderer->DrawQuad(player_2.pixels(), color_r, color_g, color_b);
-
-	for (auto& water : waters)
-	{
-		// Draw water
-		color_r = 0; color_g = 0; color_b = 255;
-		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
-	}
-	for (auto& water : scene_waters)
-	{
-		// Draw scene_water
-		color_r = 0; color_g = 0; color_b = 255;
-		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
-	}
-
-	for (auto& water : debug_water)
-	{
-		// Draw water
-		color_r = 0; color_g = 0; color_b = 255;
-		App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b, 90);
-	}
-
-	for (auto& air : airs)
-	{
-		// Draw water
-		color_r = 0; color_g = 120; color_b = 200;
-		App->renderer->DrawQuad(air.pixels(), color_r, color_g, color_b);
-	}
-
-
-	// Draw all balls in the scenario
-	for (auto& ball : balls)
-	{
-		// Convert from physical magnitudes to geometrical pixels
-		int pos_x = METERS_TO_PIXELS(ball.x);
-		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
-		int size_r = METERS_TO_PIXELS(ball.radius);
-
-		// Select color
-		if (ball.physics_enabled)
+		for (auto& ball : bally)
 		{
-			if (ball.id==0)
-			{ 
-				color_r = 150; color_g = 255; color_b = 150;
-			}
-			else {
-				color_r = 200; color_g = 70; color_b = 150;
-			}
-		}
-		else
-		{
-			color_r = 255; color_g = 0; color_b = 0;
+			// Draw scene_ground
+			color_r = 0; color_g = 255; color_b = 0;
+			// Convert from physical magnitudes to geometrical pixels
+			int pos_x = METERS_TO_PIXELS(ball.x);
+			int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
+			int size_r = METERS_TO_PIXELS(ball.radius);
+			// Draw ball
+			App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
 		}
 
-		// Draw ball
-		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		// Draw player_1
+		color_r = 255; color_g = 0; color_b = 0;
+		App->renderer->DrawQuad(player_1.pixels(), color_r, color_g, color_b);
+		currentAnimation = &P1_idle;
+
+		// Draw player_2
+		color_r = 200; color_g = 70; color_b = 150;
+		App->renderer->DrawQuad(player_2.pixels(), color_r, color_g, color_b);
+
+		for (auto& water : waters)
+		{
+			// Draw water
+			color_r = 0; color_g = 0; color_b = 255;
+			App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+		}
+		for (auto& water : scene_waters)
+		{
+			// Draw scene_water
+			color_r = 0; color_g = 0; color_b = 255;
+			App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b);
+		}
+
+		for (auto& water : debug_water)
+		{
+			// Draw water
+			color_r = 0; color_g = 0; color_b = 255;
+			App->renderer->DrawQuad(water.pixels(), color_r, color_g, color_b, 90);
+		}
+
+		for (auto& air : airs)
+		{
+			// Draw water
+			color_r = 0; color_g = 120; color_b = 200;
+			App->renderer->DrawQuad(air.pixels(), color_r, color_g, color_b);
+		}
+
+
+		// Draw all balls in the scenario
+		for (auto& ball : balls)
+		{
+			// Convert from physical magnitudes to geometrical pixels
+			int pos_x = METERS_TO_PIXELS(ball.x);
+			int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
+			int size_r = METERS_TO_PIXELS(ball.radius);
+
+			// Select color
+			if (ball.physics_enabled)
+			{
+				if (ball.id == 0)
+				{
+					color_r = 150; color_g = 255; color_b = 150;
+				}
+				else {
+					color_r = 200; color_g = 70; color_b = 150;
+				}
+			}
+			else
+			{
+				color_r = 255; color_g = 0; color_b = 0;
+			}
+
+			// Draw ball
+			App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
+		}
 	}
 
 	return UPDATE_CONTINUE;

@@ -23,8 +23,8 @@ public:
 	ModuleInput* input;
 	ModuleAudio* audio;
 	ModulePlayer* player;
-	ModuleSceneIntro* scene_intro;
 	ModulePhysics* physics;
+	ModuleSceneIntro* scene_intro;
 	ModuleFonts* fonts;
 
 private:

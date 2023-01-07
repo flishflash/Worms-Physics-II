@@ -162,7 +162,18 @@ public:
 	Animation P1_idle;
 	const char* path_p1 = "Assets/player1.png";
 	const char* path_p2 = NULL;
+
+	//Change integrator method
+	int integrator=1;
+
 private:
+
+	SDL_Texture* bola;
+	SDL_Texture* aire;
+	SDL_Texture* agua;
+	SDL_Texture* tierra;
+	SDL_Texture* green;
+	SDL_Texture* red;
 
 	bool debug;
 };
@@ -189,6 +200,16 @@ void compute_hydrodynamic_buoyancy_player(float& fx, float& fy, const Pplayer& p
 void integrator_velocity_verlet(PhysBall& ball, float dt);
 
 void integrator_velocity_verlet_player(Pplayer& player, float dt);
+
+// Integration scheme: Velocity Backwards Euler
+void integrator_velocity_BackwardsEuler(PhysBall& ball, float dt);
+
+void integrator_velocity_BackwardsEuler_player(Pplayer& player, float dt);
+
+// Integration scheme: Velocity Forward Euler
+void integrator_velocity_ForwardsEuler(PhysBall& ball, float dt);
+
+void integrator_velocity_ForwardsEuler_player(Pplayer& player, float dt);
 
 // Detect collision with ground
 bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground);

@@ -20,7 +20,8 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->renderer->camera.x = App->renderer->camera.y = 0;
+	App->renderer->camera.x = 1024;
+	App->renderer->camera.y = 0;
 	turns = true;
 	jump = true;
 	material = 1;
@@ -29,25 +30,29 @@ bool ModuleSceneIntro::Start()
 	coef = true;
 	debugWater = false;
 
+	//Pantallas
 	texture = App->textures->Load("Assets/Worms_Map.png");
+	Grupo = App->textures->Load("Assets/ElGrupo4LogoXD.png");
+	Intro = App->textures->Load("Assets/Title.png");
+	Player1 = App->textures->Load("Assets/GreenWins.png");
+	Player2 = App->textures->Load("Assets/RedWins.png");
 
-	//Ball Map
-	 
+	//Ball Map 
 	// Create a ball
 	PhysBall ball_ = PhysBall();
 
 	// Set static properties of the ball
 	ball_.mass = 0.0f; // [kg]
 	ball_.surface = 4.0f; // [m^2]
-	ball_.radius = 2.0f; // [m]
+	ball_.radius = PIXEL_TO_METERS(60); // [m]
 	ball_.cd = 0.4f; // [-]
 	ball_.cl = 1.2f; // [-]
 	ball_.b = 10.0f; // [...]
 	ball_.coef_friction = 0.9f; // [-]
 	ball_.coef_restitution = 0.8f; // [-]
 	// Set initial position and velocity of the ball
-	ball_.x = 20;
-	ball_.y = 20;
+	ball_.x = PIXEL_TO_METERS(512);
+	ball_.y = PIXEL_TO_METERS(325);
 
 	ball_.vx = 0.0f;
 	ball_.vy = 0.0f;
@@ -75,6 +80,10 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(texture, 0, 0);
+	App->renderer->Blit(Grupo, -1024, 0);
+	App->renderer->Blit(Intro, -2048, 0);
+	App->renderer->Blit(Player1, -3072, 0);
+	App->renderer->Blit(Player2, -4096, 0);
 
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		debug = !debug;
@@ -206,9 +215,22 @@ update_status ModuleSceneIntro::Update()
 				App->physics->FPS += 10.0f;
 				fPs -= 10.0f;
 			}
+		}if (App->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+				
+				App->physics->integrator = 1;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+				
+				App->physics->integrator = 2;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+				
+				App->physics->integrator = 3;
+			}
 		}
 	}
-
 	switch (turns)
 	{
 	case true:
@@ -318,7 +340,7 @@ update_status ModuleSceneIntro::Update()
 			{
 				App->physics->player_2.x -= 0.05f;
 			}
-			if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && jump == false)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
 			{
 				App->physics->player_2.y += 1.0f;
 				jump = true;
@@ -355,6 +377,18 @@ update_status ModuleSceneIntro::Update()
 			turns = false;
 			jump = false; choose_material = false;
 		}
+		if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_UP)
+		{
+			//Player1 Wins
+			App->player->vida_2 = 0;
+			AddBall((App->physics->player_1.x + App->physics->player_1.w), App->physics->player_1.h + App->physics->player_1.y, App->input->GetMouseX(), App->input->GetMouseY(), 0);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_UP)
+		{
+			//Player2 Wins
+			App->player->vida_1 = 0;
+			AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
+		}
 
 	int gry = App->physics->gry;
 	int windx = App->physics->atmosphere.windx;
@@ -374,31 +408,69 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(fby, 10, "%7d", App->physics->bfy);
 	sprintf_s(fps, 10, "%7d", fPs);
 
-	App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
-	App->fonts->BlitText(40, 70, scoreFont, "WIND X:");
-	App->fonts->BlitText(40, 105, scoreFont, "WIND Y:");
-	App->fonts->BlitText(40, 140, scoreFont, "FRICTION:");
-	App->fonts->BlitText(40, 175, scoreFont, "BOUYANCY X:");
-	App->fonts->BlitText(40, 210, scoreFont, "BOUYANCY Y:");
-	App->fonts->BlitText(40, 245, scoreFont, "VELOCITY BALL X:");
-	App->fonts->BlitText(40, 280, scoreFont, "VELOCITY BALL Y:");
-	App->fonts->BlitText(40, 315, scoreFont, "TOTAL FX BALL:");
-	App->fonts->BlitText(40, 350, scoreFont, "TOTAL FY BALL:");
-	App->fonts->BlitText(40, 385, scoreFont, "FPS:");
+	switch (pantallas)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		App->fonts->BlitText(40, 35, scoreFont, "GRAVITY:");
+		App->fonts->BlitText(40, 70, scoreFont, "WIND X:");
+		App->fonts->BlitText(40, 105, scoreFont, "WIND Y:");
+		App->fonts->BlitText(40, 140, scoreFont, "FRICTION:");
+		App->fonts->BlitText(40, 175, scoreFont, "BOUYANCY X:");
+		App->fonts->BlitText(40, 210, scoreFont, "BOUYANCY Y:");
+		App->fonts->BlitText(40, 245, scoreFont, "VELOCITY BALL X:");
+		App->fonts->BlitText(40, 280, scoreFont, "VELOCITY BALL Y:");
+		App->fonts->BlitText(40, 315, scoreFont, "TOTAL FX BALL:");
+		App->fonts->BlitText(40, 350, scoreFont, "TOTAL FY BALL:");
+		App->fonts->BlitText(40, 385, scoreFont, "FPS:");
 
-	//highscore
-	App->fonts->BlitText(90, 35, scoreFont, GravityT);
-	App->fonts->BlitText(90, 70, scoreFont, WindX);
-	App->fonts->BlitText(90, 105, scoreFont, WindY);
-	App->fonts->BlitText(90, 140, scoreFont, Friction);
-	App->fonts->BlitText(90, 175, scoreFont, BouyancyX);
-	App->fonts->BlitText(90, 210, scoreFont, BouyancyY);
-	App->fonts->BlitText(120, 245, scoreFont, vbx);
-	App->fonts->BlitText(120, 280, scoreFont, vby);
-	App->fonts->BlitText(120, 315, scoreFont, fbx);
-	App->fonts->BlitText(120, 350, scoreFont, fby);
-	App->fonts->BlitText(90, 385, scoreFont, fps);
-	
+		//Datos
+		App->fonts->BlitText(90, 35, scoreFont, GravityT);
+		App->fonts->BlitText(90, 70, scoreFont, WindX);
+		App->fonts->BlitText(90, 105, scoreFont, WindY);
+		App->fonts->BlitText(90, 140, scoreFont, Friction);
+		App->fonts->BlitText(90, 175, scoreFont, BouyancyX);
+		App->fonts->BlitText(90, 210, scoreFont, BouyancyY);
+		App->fonts->BlitText(120, 245, scoreFont, vbx);
+		App->fonts->BlitText(120, 280, scoreFont, vby);
+		App->fonts->BlitText(120, 315, scoreFont, fbx);
+		App->fonts->BlitText(120, 350, scoreFont, fby);
+		App->fonts->BlitText(90, 385, scoreFont, fps);
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
+	{
+		switch (pantallas)
+		{
+			case 0:
+				pantallas++;
+				App->renderer->camera.x = 2048;
+				break;
+			case 1:
+				pantallas++;
+				App->renderer->camera.x = 0;
+				break;
+			case 2:
+				break;
+			case 3:
+				pantallas--;
+				App->renderer->camera.x = 0;
+				break;
+			case 4:
+				pantallas=2;
+				App->renderer->camera.x = 0;
+				break;
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -417,7 +489,7 @@ void ModuleSceneIntro::AddBall(float x, float y, float X, float Y, int orientati
 	ball.radius = 0.25f; // [m]
 	ball.cd = 0.4f; // [-]
 	ball.cl = 1.2f; // [-]
-	ball.b = 10.0f; // [...]
+	ball.b = 50.0f; // [...]
 	ball.coef_friction = 0.9f; // [-]
 	ball.coef_restitution = 0.8f; // [-]
 

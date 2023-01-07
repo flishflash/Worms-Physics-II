@@ -82,7 +82,6 @@ update_status ModulePlayer::Update()
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_water_with_player(App->physics->player_1, water))
 		{
-
 			// Hydrodynamic Drag force
 			float fhdx = 0.0f; float fhdy = 0.0f;
 			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_1, water);
@@ -96,7 +95,6 @@ update_status ModulePlayer::Update()
 		// Hydrodynamic forces (only when in water)
 		if (is_colliding_water_with_player(App->physics->player_2, water))
 		{
-
 			// Hydrodynamic Drag force
 			float fhdx = 0.0f; float fhdy = 0.0f;
 			compute_hydrodynamic_drag_player(fhdx, fhdy, App->physics->player_2, water);
@@ -109,7 +107,6 @@ update_status ModulePlayer::Update()
 		}
 
 	}
-
 	for (auto& water : App->physics->debug_water)
 	{
 
@@ -144,8 +141,6 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-
-
 	// SUM_Forces = mass * accel --> accel = SUM_Forces / mass
 	App->physics->player_1.ax = App->physics->player_1.fx / App->physics->player_1.mass;
 	App->physics->player_1.ay = App->physics->player_1.fy / App->physics->player_1.mass;
@@ -154,16 +149,154 @@ update_status ModulePlayer::Update()
 	App->physics->player_2.ax = App->physics->player_2.fx / App->physics->player_2.mass;
 	App->physics->player_2.ay = App->physics->player_2.fy / App->physics->player_2.mass;
 
-	// We will use the 2nd order "Velocity Verlet" method for integration.
-	integrator_velocity_verlet_player(App->physics->player_1, App->physics->dt);
-	integrator_velocity_verlet_player(App->physics->player_2, App->physics->dt);
 
-
+	switch (App->physics->integrator)
+	{
+	case 1:
+		// We will use the 2nd order "Velocity Verlet" method for integration.
+		integrator_velocity_verlet_player(App->physics->player_1, App->physics->dt);
+		integrator_velocity_verlet_player(App->physics->player_2, App->physics->dt);
+		LOG("Verlet")
+		break;
+	case 2:
+		// We will use the 2nd order "Velocity BackwardsEuler" method for integration.
+		integrator_velocity_BackwardsEuler_player(App->physics->player_1, App->physics->dt);
+		integrator_velocity_BackwardsEuler_player(App->physics->player_2, App->physics->dt);
+		LOG("Backwards")
+		break;
+	case 3:
+		// We will use the 2nd order "Velocity ForwardsEuler" method for integration.
+		integrator_velocity_ForwardsEuler_player(App->physics->player_1, App->physics->dt);
+		integrator_velocity_ForwardsEuler_player(App->physics->player_2, App->physics->dt);
+		LOG("Forwards")
+		break;
+	}
 	
+	//Ground Collisions
 	for (auto& ground : App->physics->grounds)
 	{
 		if (is_colliding_ground_with_player(App->physics->player_1, ground))
 		{
+			if (ground.ID == 1)
+			{
+				if (App->physics->player_1.y >= PIXEL_TO_METERS(588))
+				{
+					App->physics->player_1.y = PIXEL_TO_METERS(206);
+					App->physics->player_1.x = PIXEL_TO_METERS(925);
+				}
+				else
+				{
+					App->physics->player_1.y = PIXEL_TO_METERS(462);
+					App->physics->player_1.x = PIXEL_TO_METERS(925);
+				}
+			}
+			else if (ground.ID == 2)
+			{
+				if (App->physics->player_1.y >= PIXEL_TO_METERS(460))
+				{
+					App->physics->player_1.y = PIXEL_TO_METERS(152);
+					App->physics->player_1.x = PIXEL_TO_METERS(68);
+				}
+				else
+				{
+					App->physics->player_1.y = PIXEL_TO_METERS(588);
+					App->physics->player_1.x = PIXEL_TO_METERS(68);
+				}
+			}
+			else
+			{
+				//r2y < r1y + r1h
+				if (App->physics->player_1.y + App->physics->player_1.h > ground.y + ground.h)
+				{
+					// TP ball to ground surface
+					App->physics->player_1.y = ground.y + ground.h;
+					App->physics->player_1.vy = 0;
+				}
+				else if (App->physics->player_1.y < ground.y)
+				{
+					// TP ball to ground surface
+					App->physics->player_1.y = ground.y - App->physics->player_1.h;
+				}
+				else
+				{
+					if (App->physics->player_1.x > ground.x)
+					{
+						// TP ball to ground right
+						App->physics->player_1.x = ground.x + ground.w;
+					}
+					else
+					{
+						// TP ball to ground left
+						App->physics->player_1.x = ground.x - App->physics->player_1.w;
+					}
+				}
+			}
+		}
+		if (is_colliding_ground_with_player(App->physics->player_2, ground))
+		{
+			if (ground.ID == 1)
+			{
+				if (App->physics->player_2.y >= PIXEL_TO_METERS(588))
+				{
+					App->physics->player_2.y = PIXEL_TO_METERS(206);
+					App->physics->player_2.x = PIXEL_TO_METERS(925);
+				}
+				else
+				{
+					App->physics->player_2.y = PIXEL_TO_METERS(462);
+					App->physics->player_2.x = PIXEL_TO_METERS(925);
+				}
+			}
+			else if (ground.ID == 2)
+			{
+				if (App->physics->player_2.y >= PIXEL_TO_METERS(460))
+				{
+					App->physics->player_2.y = PIXEL_TO_METERS(152);
+					App->physics->player_2.x = PIXEL_TO_METERS(68);
+				}
+				else
+				{
+					App->physics->player_2.y = PIXEL_TO_METERS(588);
+					App->physics->player_2.x = PIXEL_TO_METERS(68);
+				}
+			}
+			else
+			{
+				//r2y < r1y + r1h
+				if (App->physics->player_2.y + App->physics->player_2.h > ground.y + ground.h)
+				{
+					// TP ball to ground surface
+					App->physics->player_2.y = ground.y + ground.h;
+					App->physics->player_2.vy = 0;
+				}
+				else if (App->physics->player_2.y < ground.y)
+				{
+					// TP ball to ground surface
+					App->physics->player_2.y = ground.y - App->physics->player_2.h;
+				}
+				else
+				{
+					if (App->physics->player_2.x > ground.x)
+					{
+						// TP ball to ground right
+						App->physics->player_2.x = ground.x + ground.w;
+					}
+					else
+					{
+						// TP ball to ground left
+						App->physics->player_2.x = ground.x - App->physics->player_2.w;
+					}
+				}
+			}
+		}
+		
+	}
+
+	for (auto& ground : App->physics->scene_grounds)
+	{
+		if (is_colliding_ground_with_player(App->physics->player_1, ground))
+		{
+
 			//r2y < r1y + r1h
 			if (App->physics->player_1.y + App->physics->player_1.h > ground.y + ground.h)
 			{
@@ -220,7 +353,6 @@ update_status ModulePlayer::Update()
 			}
 		}
 	}
-
 
 	return UPDATE_CONTINUE;
 }

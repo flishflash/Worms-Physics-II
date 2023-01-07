@@ -107,10 +107,15 @@ public:
 	char fps[10] = { "\0" };
 
 	bool debug = false;
+	int pantallas = 0;
 
 private:
 
 	SDL_Texture* texture;
+	SDL_Texture* Grupo;
+	SDL_Texture* Intro;
+	SDL_Texture* Player1;
+	SDL_Texture* Player2;
 
 	int fPs;
 	bool jump;

@@ -154,7 +154,6 @@ update_status ModulePhysics::PreUpdate()
 
 		for (auto& water : waters)
 		{
-
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
@@ -269,13 +268,25 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
-		//for (auto& ball : balls)
-		//{
-		//	if (is_colliding_with_ball(ball, ball))
-		//	{
-		//		
-		//	}
-		//}
+		for (auto& ball : bally)
+		{
+			for (auto& bal : balls)
+			{
+				if (is_colliding_with_ball(bal, ball))
+				{
+
+					// Elastic bounce with ground
+					bal.vy = -bal.vy;
+					bal.vx = -bal.vx;
+					if (App->scene_intro->coef)
+					{
+						// FUYM non-elasticity
+						bal.vx *= bal.coef_friction;
+						bal.vy *= bal.coef_restitution;
+					}
+				}
+			}
+		}
 		for (auto& ground : grounds)
 		{
 			if (is_colliding_with_ground(ball, ground))
@@ -435,6 +446,17 @@ update_status ModulePhysics::PostUpdate()
 		// Draw scene_ground
 		color_r = 0; color_g = 255; color_b = 0;
 		App->renderer->DrawQuad(ground.pixels(), color_r, color_g, color_b);
+	}
+	for (auto& ball : bally)
+	{
+		// Draw scene_ground
+		color_r = 0; color_g = 255; color_b = 0;
+		// Convert from physical magnitudes to geometrical pixels
+		int pos_x = METERS_TO_PIXELS(ball.x);
+		int pos_y = SCREEN_HEIGHT - METERS_TO_PIXELS(ball.y);
+		int size_r = METERS_TO_PIXELS(ball.radius);
+		// Draw ball
+		App->renderer->DrawCircle(pos_x, pos_y, size_r, color_r, color_g, color_b);
 	}
 
 	// Draw player_1
@@ -608,7 +630,7 @@ bool is_colliding_with_ground(const PhysBall& ball, const Ground& ground)
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, ground.w, ground.h);
 }
 
-// Detect collision with ground
+// Detect collision with air
 bool is_colliding_with_air(const PhysBall& ball, const Air& air)
 {
 	float rect_x = (air.x + air.w / 2.0f); // Center of rectangle
@@ -616,12 +638,18 @@ bool is_colliding_with_air(const PhysBall& ball, const Air& air)
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, air.w, air.h);
 }
 
-// Detect collision with ground
+// Detect collision with player
 bool is_colliding_with_player(const PhysBall& ball, const Pplayer& player)
 {
 	float rect_x = (player.x + player.w / 2.0f); // Center of rectangle
 	float rect_y = (player.y + player.h / 2.0f); // Center of rectangle
 	return check_collision_circle_rectangle(ball.x, ball.y, ball.radius, rect_x, rect_y, player.w, player.h);
+}
+
+// Detect collision with ball
+bool is_colliding_with_ball(const PhysBall& ball, const PhysBall& ball_)
+{
+	return check_collision_circle_circle(ball.x, ball.y, ball.radius, ball_.x, ball_.y, ball_.radius);
 }
 
 // Detect collision with water
@@ -671,6 +699,24 @@ bool check_collision_rectangle_rectangle(float r1x, float r1y, float r1w, float 
 {
 	return (r2x < r1x + r1w && r2x + r2w > r1x && 
 			r2y < r1y + r1h && r2y + r2h > r1y);
+}
+
+bool check_collision_circle_circle(float cx, float cy, float cr, float cx_, float cy_, float cr_)
+{
+	float xd = cx - cx_;
+	float yd = cy - cy_;
+
+	float sumRadius = cr + cr_;
+	float sqrRadius = sumRadius * sumRadius;
+
+	float distSqr = (xd * xd) + (yd * yd);
+
+	if (distSqr <= sqrRadius)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 // Convert from meters to pixels (for SDL drawing)

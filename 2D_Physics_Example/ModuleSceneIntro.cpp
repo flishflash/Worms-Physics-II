@@ -29,6 +29,32 @@ bool ModuleSceneIntro::Start()
 	coef = true;
 	debugWater = false;
 
+
+	//Ball Map
+	 
+	// Create a ball
+	PhysBall ball_ = PhysBall();
+
+	// Set static properties of the ball
+	ball_.mass = 0.0f; // [kg]
+	ball_.surface = 4.0f; // [m^2]
+	ball_.radius = 2.0f; // [m]
+	ball_.cd = 0.4f; // [-]
+	ball_.cl = 1.2f; // [-]
+	ball_.b = 10.0f; // [...]
+	ball_.coef_friction = 0.9f; // [-]
+	ball_.coef_restitution = 0.8f; // [-]
+	// Set initial position and velocity of the ball
+	ball_.x = 20;
+	ball_.y = 20;
+
+	ball_.vx = 0.0f;
+	ball_.vy = 0.0f;
+
+	// Add ball to the collection
+	App->physics->bally.emplace_back(ball_);
+
+
 	char lookupTable[] = { "ABCDEFGHIJKLNOPKRSTUVXYZ0123456789: " };
 	scoreFont = App->fonts->Load("Assets/ABC.png", lookupTable, 1);
 

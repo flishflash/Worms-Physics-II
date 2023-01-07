@@ -125,6 +125,7 @@ public:
 
 	// Physics objects
 	std::vector<PhysBall> balls{};
+	std::vector<PhysBall> bally{};
 	Atmosphere atmosphere{};
 	Water water{};
 	Pplayer player_1{};

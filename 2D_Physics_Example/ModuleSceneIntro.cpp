@@ -242,6 +242,18 @@ update_status ModuleSceneIntro::Update()
 				App->physics->integrator = 3;
 			}
 		}
+		//Player control
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+
+				MType = 1;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+
+				MType = 2;
+			}
+		}
 	}
 	switch (turns)
 	{
@@ -288,7 +300,13 @@ update_status ModuleSceneIntro::Update()
 		{
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
-				App->physics->player_1.x -= 0.05f;
+				switch (MType)
+				{
+					case 1:
+						App->physics->player_1.x -= 0.05f;
+					case 2:
+						App->physics->player_1.vx = -1.5f;
+				}
 				flip_1 = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == true)
@@ -299,8 +317,18 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
-				App->physics->player_1.x += 0.05f;
+				switch (MType)
+				{
+				case 1:
+					App->physics->player_1.x += 0.05f;
+				case 2:
+					App->physics->player_1.vx = 1.5f;
+				}
 				flip_1 = SDL_RendererFlip::SDL_FLIP_NONE;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				App->physics->player_1.vx = 0;
 			}
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
@@ -352,7 +380,13 @@ update_status ModuleSceneIntro::Update()
 		else {
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
-				App->physics->player_2.x -= 0.05f;
+				switch (MType)
+				{
+				case 1:
+					App->physics->player_2.x -= 0.05f;
+				case 2:
+					App->physics->player_2.vx = -1.5f;
+				}
 				flip_2 = SDL_RendererFlip::SDL_FLIP_NONE;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && jump == false)
@@ -363,10 +397,19 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
-				App->physics->player_2.x += 0.05f;
+				switch (MType)
+				{
+				case 1:
+					App->physics->player_2.x += 0.05f;
+				case 2:
+					App->physics->player_2.vx = 1.5f;
+				}
 				flip_2 = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 			}
-
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			{
+				App->physics->player_2.vx = 0;
+			}
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 			{
 				AddBall((App->physics->player_2.x + App->physics->player_2.w), App->physics->player_2.h + App->physics->player_2.y, App->input->GetMouseX(), App->input->GetMouseY(), 1);
@@ -445,6 +488,8 @@ update_status ModuleSceneIntro::Update()
 		if(App->physics->integrator == 1){ App->fonts->BlitText(40, 600, scoreFont, "VERLET INTEGRATOR"); }
 		if (App->physics->integrator == 2) { App->fonts->BlitText(40, 600, scoreFont, "BWS EULER INTEGRATOR"); }
 		if (App->physics->integrator == 3) { App->fonts->BlitText(40, 600, scoreFont, "FWS EULER INTEGRATOR"); }
+		if (MType == 1) { App->fonts->BlitText(40, 635, scoreFont, "MOVEMENT CHANGING X "); }
+		if (MType == 2) { App->fonts->BlitText(40, 635, scoreFont, "MOVEMENT FIXED VELOCITY"); }
 
 		//Datos
 		App->fonts->BlitText(90, 35, scoreFont, GravityT);

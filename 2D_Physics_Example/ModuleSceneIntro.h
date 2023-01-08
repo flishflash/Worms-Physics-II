@@ -122,6 +122,7 @@ private:
 	SDL_Texture* Player2;
 
 	int fPs;
+	int MType = 1;
 	bool jump;
 	int material;
 	float fgcopy;

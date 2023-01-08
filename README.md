@@ -7,6 +7,9 @@
  - Joel Maldonado
  - José Antonio Tur
 
+## Gameplay ##
+You and your friend control a soldier, an your objective is fight till one of you die
+
 ## Controls ##
   ENTER = Change scene
  1. Choose type of block:

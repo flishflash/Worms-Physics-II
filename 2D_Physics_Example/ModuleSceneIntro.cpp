@@ -42,8 +42,8 @@ bool ModuleSceneIntro::Start()
 	PhysBall ball_ = PhysBall();
 
 	// Set static properties of the ball
-	ball_.mass = 0.0f; // [kg]
-	ball_.surface = 4.0f; // [m^2]
+	ball_.mass = 10.0f; // [kg]
+	ball_.surface = 1.0f; // [m^2]
 	ball_.radius = PIXEL_TO_METERS(60); // [m]
 	ball_.cd = 0.4f; // [-]
 	ball_.cl = 1.2f; // [-]
@@ -218,8 +218,12 @@ update_status ModuleSceneIntro::Update()
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
 				/// PRINT ///
-				App->physics->FPS += 10.0f;
-				fPs -= 10.0f;
+
+				if (fPs > 0)
+				{
+					App->physics->FPS += 10.0f;
+					fPs -= 10.0f;
+				}
 			}
 		}
 		//Integrator
@@ -437,6 +441,10 @@ update_status ModuleSceneIntro::Update()
 		App->fonts->BlitText(40, 315, scoreFont, "TOTAL FX BALL:");
 		App->fonts->BlitText(40, 350, scoreFont, "TOTAL FY BALL:");
 		App->fonts->BlitText(40, 385, scoreFont, "FPS:");
+
+		if(App->physics->integrator == 1){ App->fonts->BlitText(40, 600, scoreFont, "VERLET INTEGRATOR"); }
+		if (App->physics->integrator == 2) { App->fonts->BlitText(40, 600, scoreFont, "BWS EULER INTEGRATOR"); }
+		if (App->physics->integrator == 3) { App->fonts->BlitText(40, 600, scoreFont, "FWS EULER INTEGRATOR"); }
 
 		//Datos
 		App->fonts->BlitText(90, 35, scoreFont, GravityT);

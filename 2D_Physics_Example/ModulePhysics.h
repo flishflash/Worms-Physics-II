@@ -139,7 +139,7 @@ public:
 
 	//Gravity
 	float grx = 0.0f;
-	float gry = -10.0f;
+	float gry = -9.5f;
 
 	//Ball velocity
 	int bvx;
@@ -151,7 +151,9 @@ public:
 
 	// Misc
 	float FPS = 60.0f;
-	float dt = 1.0 / FPS;
+	double dt = 1.0 / FPS;
+	double t = 0.0;
+	int timestep = 1;
 
 	//Water
 	float vy, vx;

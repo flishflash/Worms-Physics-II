@@ -196,7 +196,7 @@ bool ModulePhysics::Start()
 	atmosphere = Atmosphere();
 	atmosphere.windx = -10.0f; // [m/s]
 	atmosphere.windy = 10.0f; // [m/s]
-	atmosphere.density = 5.0f; // [kg/m^3]
+	atmosphere.density = 1.0f; // [kg/m^3]
 
 	//Init water
 	vy = 1.0f;
@@ -230,11 +230,12 @@ update_status ModulePhysics::PreUpdate()
 	//Delta Time
 	dt = 1.0 / FPS;
 
-	// Create water
-	water = Water();
-	water.density = 50.0f; // [kg/m^3]
-	water.vx = vx; // [m/s]
-	water.vy = vy; // [m/s]
+
+	//// Create water
+	//water = Water();
+	//water.density = 50.0f; // [kg/m^3]
+	//water.vx = vx; // [m/s]
+	//water.vy = vy; // [m/s]
 
 
 	// Process all balls in the scenario
@@ -273,12 +274,11 @@ update_status ModulePhysics::PreUpdate()
 			ball.fx += fdx; ball.fy += fdy; // Add this force to ball's total force
 		}
 
-		for (auto& water : waters)
+		for (auto& water : debug_water)
 		{
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
-				App->scene_intro->vientesito = false;
 
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
@@ -292,13 +292,11 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
-		for (auto& water : debug_water)
+		for (auto& water : waters)
 		{
-
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
-				App->scene_intro->vientesito = false;
 
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
@@ -317,7 +315,6 @@ update_status ModulePhysics::PreUpdate()
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
-				App->scene_intro->vientesito = false;
 
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
@@ -336,7 +333,6 @@ update_status ModulePhysics::PreUpdate()
 			// Hydrodynamic forces (only when in water)
 			if (is_colliding_with_water(ball, water))
 			{
-				App->scene_intro->vientesito = false;
 
 				// Hydrodynamic Drag force
 				float fhdx = 0.0f; float fhdy = 0.0f;
@@ -361,8 +357,6 @@ update_status ModulePhysics::PreUpdate()
 			}
 		}
 
-		// Other forces
-		// ...
 
 		// Step #2: 2nd Newton's Law
 		// ----------------------------------------------------------------------------------------
@@ -583,21 +577,21 @@ update_status ModulePhysics::PreUpdate()
 				}
 			}
 		}
-		if (ball.vx >= 15)
+		if (ball.vx >= 30)
 		{
-			ball.vx = 15;
+			ball.vx = 30;
 		}
-		if (ball.vy >= 15)
+		if (ball.vy >= 30)
 		{
-			ball.vy = 15;
+			ball.vy = 30;
 		}
-		if (ball.vx <= -15)
+		if (ball.vx <= -30)
 		{
-			ball.vx = -15;
+			ball.vx = -30;
 		}
-		if (ball.vy <= -15)
+		if (ball.vy <= -30)
 		{
-			ball.vy = -15;
+			ball.vy = -30;
 		}
 
 		bvx = ball.vx;
@@ -784,9 +778,9 @@ void compute_aerodynamic_lift(float& fx, float& fy, const PhysBall& ball, const 
 	float rel_vel[2] = { ball.vx - atmosphere.windx, ball.vy - atmosphere.windy }; // Relative velocity
 	float speed = modulus(rel_vel[0], rel_vel[1]); // Modulus of the relative velocity
 	float rel_vel_unitary[2] = { rel_vel[0] / speed, rel_vel[1] / speed }; // Unitary vector of relative velocity
-	float fdrag_modulus = 0.5f * atmosphere.density * speed * speed * ball.surface * ball.cl; // Drag force (modulus)
-	fx = -rel_vel_unitary[0] * fdrag_modulus; // Drag is antiparallel to relative velocity
-	fy = -rel_vel_unitary[1] * fdrag_modulus; // Drag is antiparallel to relative velocity
+	float flift_modulus = 0.5f * atmosphere.density * speed * speed * ball.surface * ball.cl; // Drag force (modulus)
+	fx = -rel_vel_unitary[0] * flift_modulus; // Drag is antiparallel to relative velocity
+	fy = -rel_vel_unitary[1] * flift_modulus; // Drag is antiparallel to relative velocity
 }
 
 // Compute Hydrodynamic Drag force
@@ -807,7 +801,7 @@ void compute_hydrodynamic_buoyancy(float& fx, float& fy, const PhysBall& ball, c
 	float water_top_level = water.y + water.h; // Water top level y
 	float h = 2.0f * ball.radius; // Ball "hitbox" height
 	float surf = h * (water_top_level - ball.y); // Submerged surface
-	if ((ball.y + ball.radius) < water_top_level) surf = h * h; // If ball completely submerged, use just all ball area
+	if ((ball.y + ball.radius) < water_top_level) surf = 1.0f; // If ball completely submerged, use just all ball area
 	surf *= 0.4; // FUYM to adjust values (should compute the area of circle segment correctly instead; I'm too lazy for that)
 
 	// Compute Buoyancy force

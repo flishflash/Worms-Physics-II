@@ -8,7 +8,7 @@
  - José Antonio Tur
 
 ## Controls ##
-
+  ENTER = Change scene
  1. Choose type of block:
     - 1 = ground
     - 2 = water

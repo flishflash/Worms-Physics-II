@@ -1,17 +1,24 @@
 # Worms Physics II
 
-## Gameplay Keys ##
+## Developers
 
- - Choose type of block:
+ - Andreu Miró
+ - Jan Liria
+ - Joel Maldonado
+ - José Antonio Tur
+
+## Controls ##
+
+ 1. Choose type of block:
     - 1 = ground
     - 2 = water
     - 3 = air
- - Right click to put a block
- - Movement (only once you put a block):
+ 2. Right click to put a block
+ 3. Movement (only once you put a block):
     - A = Left
     - D = Right
     - Space = Jump(one x turn)
- - Left click to shoot (only once you put a block)
+ 4. Left click to shoot (only once you put a block)
 
 ## Debug Keys ##
 
@@ -49,5 +56,12 @@
     - 1 = Verlet
     - 2 = BWS Euler
     - 3 = FWS EULER
+ - F4 = Win P1
+ - F5 = Win P2
 
- 
+## Disclaimer
+This is a project for the University, any image and sound belongs to thier respective creator.
+
+## License
+
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.

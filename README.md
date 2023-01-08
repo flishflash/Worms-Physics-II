@@ -17,6 +17,7 @@
  3. Movement (only once you put a block):
     - A = Left
     - D = Right
+    - S = Velocity player 0
     - Space = Jump(one x turn)
  4. Left click to shoot (only once you put a block)
 

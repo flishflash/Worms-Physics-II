@@ -304,6 +304,7 @@ update_status ModuleSceneIntro::Update()
 				{
 					case 1:
 						App->physics->player_1.x -= 0.05f;
+						App->physics->player_1.vx = 0.0f;
 					case 2:
 						App->physics->player_1.vx = -1.5f;
 				}
@@ -321,6 +322,7 @@ update_status ModuleSceneIntro::Update()
 				{
 				case 1:
 					App->physics->player_1.x += 0.05f;
+					App->physics->player_1.vx = 0.0f;
 				case 2:
 					App->physics->player_1.vx = 1.5f;
 				}

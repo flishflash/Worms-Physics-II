@@ -52,10 +52,13 @@
   - Mantain pressed f:
     - UP = fps + 10
     - DOWN = fps - 10
-  - Choose type of integrator:
+  - Mantain I = Choose type of integrator:
     - 1 = Verlet
     - 2 = BWS Euler
     - 3 = FWS EULER
+  - Mantain P = Choose type of Movement:
+    - 1 = Changing x
+    - 2 = Fixed velocity
  - F4 = Win P1
  - F5 = Win P2
 
